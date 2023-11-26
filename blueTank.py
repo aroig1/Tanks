@@ -10,7 +10,7 @@ class BlueTank:
         self.x = 600
         self.y = 400
 
-        self.turret = pygame.image.load('SpriteImages/BlueTank/BlueTurret.bmp')
+        self.turret = pygame.image.load('SpriteImages/BlueTank/BlueTurret2.bmp')
         self.turretX = self.x + (self.image.get_width() / 2) - (self.turret.get_width() / 2)
         self.turretY = self.y + (self.image.get_height() / 2) - 80
 
@@ -35,7 +35,7 @@ class BlueTank:
             # print(f'width: {width} \t height: {height} \t angle: {angle}')
             # print(f'mouse x: {mouse_x} \t mouse y: {mouse_y}')
             # print(f'tank x: {self.x} \t tank y: {self.y}')
-            # print(self.image.get_width())
+            # print(self.image.get_height())
             
             # Rotate turret
             rotatedTurret = pygame.transform.rotate(self.turret, angle)

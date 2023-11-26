@@ -59,7 +59,6 @@ class TanksGame:
         self.screen.blit(self.player.image, (self.player.x, self.player.y))
         turret_img, turret_rect = self.player.getTurret()
         self.screen.blit(turret_img, turret_rect.topleft)
-        # self.screen.blit(self.player.getTurret(), (self.player.turretX, self.player.turretY))
         pygame.display.update()
 
 
