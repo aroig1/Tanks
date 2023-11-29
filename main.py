@@ -58,6 +58,7 @@ class TanksGame:
             # Shoot bullets
             if pygame.mouse.get_pressed()[0]:
                 self.bullets.append(Bullet(self.player.x + (self.player.image.get_width() / 2), self.player.y + (self.player.image.get_height() / 2)))
+                self.bulletCount += 1
 
             # Place bombs
             if keys[pygame.K_SPACE] and self.bombCount <= self.settings.maxBombs:
@@ -68,15 +69,27 @@ class TanksGame:
                 if event.type == pygame.QUIT:
                     self.gameRunning = False
 
+            # Update / Remove Bullets
             for i in range(len(self.bullets)):
-                self.bullets[i].updatePos()
+                try:
+                    self.bullets[i].updatePos()
+                    if self.bullets[i].bounceCount > self.bullets[i].bounceMax:
+                        self.bullets.pop(i)
+                        self.bulletCount -= 1
+                        i -= 1
+                except:
+                    continue
 
+            # Update / Explode Bombs
             for i in range(len(self.bombs)):
-                self.bombs[i].update()
-                if self.bombs[i].explodeCount >= self.bombs[i].explodeMax:
-                    self.bombs.pop(i)
-                    self.bombCount -= 1
-                    break
+                try:
+                    self.bombs[i].update()
+                    if self.bombs[i].explodeCount >= self.bombs[i].explodeMax:
+                        self.bombs.pop(i)
+                        self.bombCount -= 1
+                        i -= 1
+                except:
+                    continue
 
             self.displayScreen()
         

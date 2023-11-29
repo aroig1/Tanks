@@ -6,25 +6,20 @@ class Bullet:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.hitCount = 0
+        self.bounceCount = 0
+        self.bounceMax = 1
 
         self.settings = Settings()
 
-        self.image = pygame.image.load('SpriteImages/Projectiles/bullet1.bmp')
+        self.originalImage = pygame.image.load('SpriteImages/Projectiles/bullet1.bmp')
+        self.image = self.originalImage
         
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
         width = mouse_x - (self.x + (self.image.get_width() / 2))
         height = mouse_y - (self.y + (self.image.get_height() / 2))
 
-        if height != 0:
-            angle = math.atan2(width, height)
-            angle = math.degrees(angle)
-            angle = angle - 90
-        else:
-            angle = 0
-
-        self.image = pygame.transform.rotate(self.image, angle)
+        angle = self.rotateImage(width, height)
 
         if angle >= 0:
             self.xVelocity = self.settings.bulletSpeed * math.cos(math.radians(angle))
@@ -42,6 +37,26 @@ class Bullet:
         self.x += 15 * self.xVelocity
         self.y += 15 * self.yVelocity
 
+    def rotateImage(self, width, height):
+        if height != 0:
+            angle = math.atan2(width, height)
+            angle = math.degrees(angle)
+            angle = angle - 90
+        else:
+            angle = 0
+
+        self.image = pygame.transform.rotate(self.originalImage, angle)
+        return angle
+
     def updatePos(self):
         self.x += self.xVelocity
         self.y += self.yVelocity
+        if self.x <= 0 or self.x >= self.settings.screenSize[0]:
+            self.xVelocity *= -1
+            self.rotateImage(self.xVelocity, self.yVelocity)
+            self.bounceCount += 1
+        elif self.y <= 0 or self.y >= self.settings.screenSize[1]:
+            self.yVelocity *= -1
+            self.rotateImage(self.xVelocity, self.yVelocity)
+            self.bounceCount += 1
+

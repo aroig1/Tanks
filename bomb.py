@@ -23,20 +23,24 @@ class Bomb:
 
     def update(self):
         self.timer += 1
+        # Explosion animation
         if self.countdown == 0 and self.explodeCount < self.explodeMax:
             self.image = self.explodeImages[self.explodeCount]
             self.x -= 10
             self.y -= 5
             self.explodeCount += 1
+        # Red Flash
         elif self.timer == 5 and self.color % 2 == 1:
             self.color += 1
             self.image = self.images[self.color % 2]
             self.timer = 0
+        # Smaller interval for end
         elif self.timer == self.countdown and self.countdown <= 10:
             self.color += 1
             self.image = self.images[self.color % 2]
             self.timer = 0
             self.countdown -= 1
+        # Initial interval between reds
         elif self.timer == self.countdown:
             self.color += 1
             self.image = self.images[self.color % 2]
