@@ -1,6 +1,7 @@
 import pygame
 from settings import Settings
 from blueTank import BlueTank
+from bullet import Bullet
 
 class TanksGame:
     def __init__(self):
@@ -11,6 +12,9 @@ class TanksGame:
         self.background = pygame.image.load('mapImages/woodbackground.png')
 
         self.player = BlueTank()
+        
+        self.bullets = []
+        self.bulletCount = 0
 
         self.gameRunning = True
 
@@ -46,9 +50,15 @@ class TanksGame:
                 self.player.image = self.player.sprites[2]
                 self.player.move(-2, 0)
 
+            if pygame.mouse.get_pressed()[0]:
+                self.bullets.append(Bullet(self.player.x + (self.player.image.get_width() / 2), self.player.y + (self.player.image.get_height() / 2)))
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.gameRunning = False
+
+            for i in range(len(self.bullets)):
+                self.bullets[i].updatePos()
 
             self.displayScreen()
         
@@ -57,6 +67,10 @@ class TanksGame:
     def displayScreen(self):
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(self.player.image, (self.player.x, self.player.y))
+
+        for bullet in self.bullets:
+            self.screen.blit(bullet.image, (bullet.x, bullet.y))
+
         turret_img, turret_rect = self.player.getTurret()
         self.screen.blit(turret_img, turret_rect.topleft)
         pygame.display.update()
