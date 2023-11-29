@@ -1,0 +1,9 @@
+Blue Tank:
+    - Player
+    - bullets bounce once
+    - can plant bombs
+
+Brown Tank:
+    - CPU
+    - bullets cannot bounce
+    - no bombs

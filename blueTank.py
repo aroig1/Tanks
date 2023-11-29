@@ -5,10 +5,10 @@ from bullet import Bullet
 from bomb import Bomb
 
 class BlueTank:
-    def __init__(self):
+    def __init__(self, x=200, y=300):
 
-        self.x = 600
-        self.y = 400
+        self.x = x
+        self.y = y
 
         self.bullets = []
         self.bulletCount = 0

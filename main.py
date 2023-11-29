@@ -58,6 +58,10 @@ class TanksGame:
             # Place bombs
             self.player.plantBomb(keys)
 
+            for enemy in self.enemies:
+                enemy.shoot(self.player.x + self.player.width, self.player.y + self.player.height)
+                enemy.updateBullets()
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.gameRunning = False
@@ -81,11 +85,7 @@ class TanksGame:
 
         # display enemies
         for enemy in self.enemies:
-            # display enemy tank base
-            self.screen.blit(enemy.image, (enemy.x, enemy.y))
-            # displat enemy tank turret
-            turret_img, turret_rect = enemy.getTurret(self.player.x + self.player.width, self.player.y + self.player.height)
-            self.screen.blit(turret_img, turret_rect.topleft)
+            enemy.display(self.screen, self.player.x + self.player.width, self.player.y + self.player.height)
 
         # update display
         pygame.display.update()
