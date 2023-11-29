@@ -3,4 +3,6 @@ class Settings:
         self.screenSize = (1200, 800)
 
         self.maxBullets = 5
-        self.bulletSpeed = 5
+        self.bulletSpeed = 8
+
+        self.maxBombs = 3

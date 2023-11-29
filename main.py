@@ -2,6 +2,7 @@ import pygame
 from settings import Settings
 from blueTank import BlueTank
 from bullet import Bullet
+from bomb import Bomb
 
 class TanksGame:
     def __init__(self):
@@ -15,6 +16,9 @@ class TanksGame:
         
         self.bullets = []
         self.bulletCount = 0
+
+        self.bombs = []
+        self.bombCount = 0
 
         self.gameRunning = True
 
@@ -50,8 +54,15 @@ class TanksGame:
                 self.player.image = self.player.sprites[2]
                 self.player.move(-2, 0)
 
+        
+            # Shoot bullets
             if pygame.mouse.get_pressed()[0]:
                 self.bullets.append(Bullet(self.player.x + (self.player.image.get_width() / 2), self.player.y + (self.player.image.get_height() / 2)))
+
+            # Place bombs
+            if keys[pygame.K_SPACE] and self.bombCount <= self.settings.maxBombs:
+                self.bombs.append(Bomb(self.player.x + (self.player.image.get_width() / 2), self.player.y + (self.player.image.get_height() / 2)))
+                self.bombCount += 1
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -60,19 +71,32 @@ class TanksGame:
             for i in range(len(self.bullets)):
                 self.bullets[i].updatePos()
 
+            for i in range(len(self.bombs)):
+                self.bombs[i].update()
+                if self.bombs[i].explodeCount >= self.bombs[i].explodeMax:
+                    self.bombs.pop(i)
+                    self.bombCount -= 1
+                    break
+
             self.displayScreen()
         
         pygame.quit()
 
     def displayScreen(self):
+        # display background
         self.screen.blit(self.background, (0, 0))
+        # display bombs
+        for bomb in self.bombs:
+            self.screen.blit(bomb.image, (bomb.x, bomb.y))
+        # display tank base
         self.screen.blit(self.player.image, (self.player.x, self.player.y))
-
+        # display bullets
         for bullet in self.bullets:
             self.screen.blit(bullet.image, (bullet.x, bullet.y))
-
+        # display tank turret
         turret_img, turret_rect = self.player.getTurret()
         self.screen.blit(turret_img, turret_rect.topleft)
+        # update display
         pygame.display.update()
 
 
