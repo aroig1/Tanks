@@ -1,6 +1,7 @@
 import pygame
 from settings import Settings
 from blueTank import BlueTank
+from brownTank import BrownTank
 from bullet import Bullet
 from bomb import Bomb
 
@@ -13,6 +14,8 @@ class TanksGame:
         self.background = pygame.image.load('mapImages/woodbackground.png')
 
         self.player = BlueTank()
+
+        self.enemies = [BrownTank()]
         
         self.bullets = []
         self.bulletCount = 0
@@ -56,7 +59,7 @@ class TanksGame:
 
         
             # Shoot bullets
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and self.bulletCount <= self.settings.maxBullets:
                 self.bullets.append(Bullet(self.player.x + (self.player.image.get_width() / 2), self.player.y + (self.player.image.get_height() / 2)))
                 self.bulletCount += 1
 
@@ -98,6 +101,7 @@ class TanksGame:
     def displayScreen(self):
         # display background
         self.screen.blit(self.background, (0, 0))
+
         # display bombs
         for bomb in self.bombs:
             self.screen.blit(bomb.image, (bomb.x, bomb.y))
@@ -109,6 +113,15 @@ class TanksGame:
         # display tank turret
         turret_img, turret_rect = self.player.getTurret()
         self.screen.blit(turret_img, turret_rect.topleft)
+
+        # display enemies
+        for enemy in self.enemies:
+            # display enemy tank base
+            self.screen.blit(enemy.image, (enemy.x, enemy.y))
+            # displat enemy tank turret
+            turret_img, turret_rect = enemy.getTurret(self.player.x + self.player.width, self.player.y + self.player.height)
+            self.screen.blit(turret_img, turret_rect.topleft)
+
         # update display
         pygame.display.update()
 
