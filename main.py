@@ -16,12 +16,6 @@ class TanksGame:
         self.player = BlueTank()
 
         self.enemies = [BrownTank()]
-        
-        self.bullets = []
-        self.bulletCount = 0
-
-        self.bombs = []
-        self.bombCount = 0
 
         self.gameRunning = True
 
@@ -59,40 +53,20 @@ class TanksGame:
 
         
             # Shoot bullets
-            if pygame.mouse.get_pressed()[0] and self.bulletCount <= self.settings.maxBullets:
-                self.bullets.append(Bullet(self.player.x + (self.player.image.get_width() / 2), self.player.y + (self.player.image.get_height() / 2)))
-                self.bulletCount += 1
+            self.player.shoot()
 
             # Place bombs
-            if keys[pygame.K_SPACE] and self.bombCount <= self.settings.maxBombs:
-                self.bombs.append(Bomb(self.player.x + (self.player.image.get_width() / 2), self.player.y + (self.player.image.get_height() / 2)))
-                self.bombCount += 1
+            self.player.plantBomb(keys)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.gameRunning = False
 
             # Update / Remove Bullets
-            for i in range(len(self.bullets)):
-                try:
-                    self.bullets[i].updatePos()
-                    if self.bullets[i].bounceCount > self.bullets[i].bounceMax:
-                        self.bullets.pop(i)
-                        self.bulletCount -= 1
-                        i -= 1
-                except:
-                    continue
+            self.player.updateBullets()
 
             # Update / Explode Bombs
-            for i in range(len(self.bombs)):
-                try:
-                    self.bombs[i].update()
-                    if self.bombs[i].explodeCount >= self.bombs[i].explodeMax:
-                        self.bombs.pop(i)
-                        self.bombCount -= 1
-                        i -= 1
-                except:
-                    continue
+            self.player.updateBombs()
 
             self.displayScreen()
         
@@ -102,17 +76,8 @@ class TanksGame:
         # display background
         self.screen.blit(self.background, (0, 0))
 
-        # display bombs
-        for bomb in self.bombs:
-            self.screen.blit(bomb.image, (bomb.x, bomb.y))
-        # display tank base
-        self.screen.blit(self.player.image, (self.player.x, self.player.y))
-        # display bullets
-        for bullet in self.bullets:
-            self.screen.blit(bullet.image, (bullet.x, bullet.y))
-        # display tank turret
-        turret_img, turret_rect = self.player.getTurret()
-        self.screen.blit(turret_img, turret_rect.topleft)
+        # display all player tank items
+        self.player.display(self.screen)
 
         # display enemies
         for enemy in self.enemies:
