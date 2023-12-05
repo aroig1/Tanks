@@ -1,6 +1,7 @@
 import pygame
 import math
 from settings import Settings
+from block import Block
 
 class BrownBullet:
     def __init__(self, x, y, player_x, player_y):
@@ -46,12 +47,15 @@ class BrownBullet:
         self.image = pygame.transform.rotate(self.originalImage, angle)
         return angle
 
-    def updatePos(self):
+    def updatePos(self, blocks):
         self.x += self.xVelocity
         self.y += self.yVelocity
         if self.x <= 0 or self.x >= self.settings.screenSize[0]:
             return True
         elif self.y <= 0 or self.y >= self.settings.screenSize[1]:
             return True
+        for block in blocks:
+            if (block.x < self.x < block.x + block.size) and (block.y < self.y < block.y + block.size):
+                return True
         return False
 

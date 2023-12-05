@@ -1,9 +1,11 @@
 import pygame
+import math
 from settings import Settings
 from blueTank import BlueTank
 from brownTank import BrownTank
 from bullet import Bullet
 from bomb import Bomb
+from block import Block
 
 class TanksGame:
     def __init__(self):
@@ -13,9 +15,13 @@ class TanksGame:
         pygame.display.set_caption("Tanks")
         self.background = pygame.image.load('mapImages/woodbackground.png')
 
-        self.player = BlueTank()
+        self.blocks = [Block(300, 200, 0), Block(300, 275, 1), Block(300, 500, 1), Block(300, 575, 0), 
+                       Block(650, 200, 0), Block(650, 275, 1), Block(650, 350, 2), Block(650, 425, 2),
+                       Block(650, 500, 1), Block(650, 575, 0)]
 
-        self.enemies = [BrownTank()]
+        self.player = BlueTank(100, 380, self.blocks)
+
+        self.enemies = [BrownTank(1000, 400, self.blocks)]
 
         self.gameRunning = True
 
@@ -28,28 +34,28 @@ class TanksGame:
             ## Movement
             if keys[pygame.K_w] and keys[pygame.K_d]:
                 self.player.image = self.player.sprites[1]
-                self.player.move(1.41, -1.41)
+                self.player.move(math.sqrt(self.settings.tankSpeed**2 / 2), -1 * math.sqrt(self.settings.tankSpeed**2 / 2))
             elif keys[pygame.K_d] and keys[pygame.K_s]:
                 self.player.image = self.player.sprites[3]
-                self.player.move(1.41, 1.41)
+                self.player.move(math.sqrt(self.settings.tankSpeed**2 / 2), math.sqrt(self.settings.tankSpeed**2 / 2))
             elif keys[pygame.K_s] and keys[pygame.K_a]:
                 self.player.image = self.player.sprites[1]
-                self.player.move(-1.41, 1.41)
+                self.player.move(-1 * math.sqrt(self.settings.tankSpeed**2 / 2), math.sqrt(self.settings.tankSpeed**2 / 2))
             elif keys[pygame.K_a] and keys[pygame.K_w]:
                 self.player.image = self.player.sprites[3]
-                self.player.move(-1.41, -1.41)
+                self.player.move(-1 * math.sqrt(self.settings.tankSpeed**2 / 2), -1 * math.sqrt(self.settings.tankSpeed**2 / 2))
             elif keys[pygame.K_w]:
                 self.player.image = self.player.sprites[0]
-                self.player.move(0, -2)
+                self.player.move(0, -1 * self.settings.tankSpeed)
             elif keys[pygame.K_d]:
                 self.player.image = self.player.sprites[2]
-                self.player.move(2, 0)
+                self.player.move(self.settings.tankSpeed, 0)
             elif keys[pygame.K_s]:
                 self.player.image = self.player.sprites[0]
-                self.player.move(0, 2)
+                self.player.move(0, self.settings.tankSpeed)
             elif keys[pygame.K_a]:
                 self.player.image = self.player.sprites[2]
-                self.player.move(-2, 0)
+                self.player.move(-1 * self.settings.tankSpeed, 0)
 
         
             # Shoot bullets
@@ -86,6 +92,10 @@ class TanksGame:
         # display enemies
         for enemy in self.enemies:
             enemy.display(self.screen, self.player.x + self.player.width, self.player.y + self.player.height)
+
+        # display blocks
+        for block in self.blocks:
+            block.display(self.screen)
 
         # update display
         pygame.display.update()

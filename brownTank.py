@@ -1,9 +1,10 @@
 import pygame
 import math
 from brownBullet import BrownBullet
+from block import Block
 
 class BrownTank:
-    def __init__(self, x=800, y=400):
+    def __init__(self, x, y, blocks):
         self.x = x
         self.y = y
 
@@ -18,6 +19,8 @@ class BrownTank:
 
         self.bullets = []
         self.bulletTimer = 0
+
+        self.blocks = blocks
 
     def getTurret(self, player_x, player_y):
 
@@ -55,7 +58,7 @@ class BrownTank:
     def updateBullets(self):
         for i in range(len(self.bullets)):
             try:
-                if self.bullets[i].updatePos():
+                if self.bullets[i].updatePos(self.blocks):
                     self.bullets.pop(i)
                     i -= 1
             except:

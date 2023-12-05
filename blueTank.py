@@ -5,7 +5,7 @@ from bullet import Bullet
 from bomb import Bomb
 
 class BlueTank:
-    def __init__(self, x=200, y=300):
+    def __init__(self, x, y, blocks):
 
         self.x = x
         self.y = y
@@ -15,6 +15,8 @@ class BlueTank:
 
         self.bombs = []
         self.bombCount = 0
+
+        self.blocks = blocks
 
         self.settings = Settings()
 
@@ -82,7 +84,7 @@ class BlueTank:
     def updateBullets(self):
         for i in range(len(self.bullets)):
             try:
-                self.bullets[i].updatePos()
+                self.bullets[i].updatePos(self.blocks)
                 if self.bullets[i].bounceCount > self.bullets[i].bounceMax:
                     self.bullets.pop(i)
                     self.bulletCount -= 1

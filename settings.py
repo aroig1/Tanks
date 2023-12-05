@@ -4,5 +4,6 @@ class Settings:
 
         self.maxBullets = 50
         self.bulletSpeed = 8
+        self.tankSpeed = 5
 
         self.maxBombs = 3
