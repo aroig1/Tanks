@@ -10,7 +10,7 @@ class BrownBullet:
 
         self.settings = Settings()
 
-        self.bulletSpeed = 5
+        self.bulletSpeed = 8
 
         self.originalImage = pygame.image.load('SpriteImages/Projectiles/bullet1.bmp')
         self.image = self.originalImage

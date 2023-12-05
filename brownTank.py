@@ -51,7 +51,7 @@ class BrownTank:
     
     def shoot(self, player_x, player_y):
         self.bulletTimer += 1
-        if self.bulletTimer == 100:
+        if self.bulletTimer == 75:
             self.bullets.append(BrownBullet(self.x + self.width, self.y + self.height, player_x, player_y))
             self.bulletTimer = 0
 
