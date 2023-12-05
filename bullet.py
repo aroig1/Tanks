@@ -61,7 +61,7 @@ class Bullet:
             self.rotateImage(self.xVelocity, self.yVelocity)
             self.bounceCount += 1
         for block in blocks:
-            if (abs(self.x - block.x + 10) <= self.settings.bulletSpeed) and (block.y < self.y < block.y + block.size): # Left border bounce
+            if (abs(self.x - block.x + self.image.get_width()) <= self.settings.bulletSpeed) and (block.y < self.y < block.y + block.size): # Left border bounce
                 self.xVelocity *= -1
                 self.rotateImage(self.xVelocity, self.yVelocity)
                 self.bounceCount += 1
@@ -69,7 +69,7 @@ class Bullet:
                 self.xVelocity *= -1
                 self.rotateImage(self.xVelocity, self.yVelocity)
                 self.bounceCount += 1
-            elif (abs(self.y - block.y + 10) <= self.settings.bulletSpeed) and (block.x < self.x < block.x + block.size): # Top border bounce
+            elif (abs(self.y - block.y + self.image.get_height()) <= self.settings.bulletSpeed) and (block.x < self.x < block.x + block.size): # Top border bounce
                 self.yVelocity *= -1
                 self.rotateImage(self.xVelocity, self.yVelocity)
                 self.bounceCount += 1

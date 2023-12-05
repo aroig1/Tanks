@@ -65,6 +65,7 @@ class TanksGame:
             # Place bombs
             self.player.plantBomb(keys)
 
+            # Update enemies
             for enemy in self.enemies:
                 enemy.shoot(self.player.x + self.player.width, self.player.y + self.player.height)
                 enemy.updateBullets()

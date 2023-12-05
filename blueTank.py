@@ -64,12 +64,33 @@ class BlueTank:
         else:
             return self.turret, self.turret.get_rect()
         
-
     def move(self, x, y):
         self.x += x
         self.y += y
         self.turretX = self.x + (self.image.get_width() / 2) - (self.turret.get_width() / 2)
         self.turretY = self.y + (self.image.get_height() / 2) - 80
+        if self.x <= 0:
+            self.x = 0
+        elif self.x >= self.settings.screenSize[0] - self.image.get_width():
+            self.x = self.settings.screenSize[0] - self.image.get_width()
+        elif self.y <= 0:
+            self.y = 0
+        elif self.y >= self.settings.screenSize[1] - self.image.get_height():
+            self.y = self.settings.screenSize[1] - self.image.get_height()
+        for block in self.blocks:
+            if (block.x <= self.x + self.image.get_width() <= block.x + (block.size / 2)) and ((block.y < self.y < block.y + block.size) or (block.y < self.y + self.image.get_height() < block.y + block.size)): # Left border bounce
+                self.x = block.x - self.image.get_width() - 1
+                return
+            elif (block.x + (block.size / 2) <= self.x <= block.x + block.size) and ((block.y < self.y < block.y + block.size) or (block.y < self.y + self.image.get_height() < block.y + block.size)): # Right border bounce
+                self.x = block.x + block.size + 1
+                return
+            elif (block.y <= self.y + self.image.get_height() <= block.y + (block.size / 2)) and ((block.x < self.x < block.x + block.size) or (block.x < self.x + self.image.get_width() < block.x + block.size)): # Top border bounce
+                self.y = block.y - self.image.get_height() - 1
+                return
+            elif (block.y + (block.size / 2) <= self.y <= block.y + block.size) and ((block.x < self.x < block.x + block.size) or (block.x < self.x + self.image.get_width() < block.x + block.size)): # Bottom border bounce
+                self.y = block.y + block.size + 1
+                return
+        
 
     def shoot(self):
         if pygame.mouse.get_pressed()[0] and self.bulletCount <= self.settings.maxBullets:

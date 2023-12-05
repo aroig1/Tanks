@@ -1,53 +1,53 @@
 {
     "level" : 1,
     "player" : {
-        "coordinates" : [100, 380]
+        "coordinates" : [100, 430]
     },
     "enemies" : [
         {
-            "coordinates" : [1000, 400],
+            "coordinates" : [1100, 450],
             "color" : "Brown"
         }
     ],
     "permanentBlocks" : [
         {
-            "coordinates" : [300, 200],
+            "coordinates" : [400, 250],
             "texture" : 0
         },
         {
-            "coordinates" : [300, 275],
+            "coordinates" : [400, 325],
             "texture" : 1
         },
         {
-            "coordinates" : [300, 500],
+            "coordinates" : [400, 550],
             "texture" : 1
         },
         {
-            "coordinates" : [300, 575],
+            "coordinates" : [400, 625],
             "texture" : 0
         },
         {
-            "coordinates" : [650, 200],
+            "coordinates" : [750, 250],
             "texture" : 0
         },
         {
-            "coordinates" : [650, 275],
+            "coordinates" : [750, 325],
             "texture" : 1
         },
         {
-            "coordinates" : [650, 350],
+            "coordinates" : [750, 400],
             "texture" : 2
         },
         {
-            "coordinates" : [650, 425],
+            "coordinates" : [750, 475],
             "texture" : 2
         },
         {
-            "coordinates" : [650, 500],
+            "coordinates" : [750, 550],
             "texture" : 1
         },
         {
-            "coordinates" : [650, 575],
+            "coordinates" : [750, 625],
             "texture" : 0
         }
     ]
