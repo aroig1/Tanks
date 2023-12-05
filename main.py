@@ -1,5 +1,6 @@
 import pygame
 import math
+import json
 from settings import Settings
 from blueTank import BlueTank
 from brownTank import BrownTank
@@ -15,17 +16,17 @@ class TanksGame:
         pygame.display.set_caption("Tanks")
         self.background = pygame.image.load('mapImages/woodbackground.png')
 
-        self.blocks = [Block(300, 200, 0), Block(300, 275, 1), Block(300, 500, 1), Block(300, 575, 0), 
-                       Block(650, 200, 0), Block(650, 275, 1), Block(650, 350, 2), Block(650, 425, 2),
-                       Block(650, 500, 1), Block(650, 575, 0)]
+        self.blocks = []
 
-        self.player = BlueTank(100, 380, self.blocks)
+        self.player = 0
 
-        self.enemies = [BrownTank(1000, 400, self.blocks)]
+        self.enemies = []
 
         self.gameRunning = True
 
     def runGame(self):
+        self.loadLevel()
+
         while self.gameRunning:
             pygame.time.delay(10)
 
@@ -100,6 +101,17 @@ class TanksGame:
         # update display
         pygame.display.update()
 
+    def loadLevel(self):
+        with open('level1.json') as levels_file:
+            data = json.load(levels_file)
+            for block in data['permanentBlocks']:
+                self.blocks.append(Block(block['coordinates'][0], block['coordinates'][1], block['texture']))
+
+            for enemy in data['enemies']:
+                self.enemies.append(BrownTank(enemy['coordinates'][0], enemy['coordinates'][1], self.blocks))
+
+            player = data['player']
+            self.player = BlueTank(player['coordinates'][0], player['coordinates'][1], self.blocks)
 
 if __name__ == '__main__':
     game = TanksGame()
