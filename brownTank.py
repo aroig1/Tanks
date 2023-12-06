@@ -50,19 +50,11 @@ class BrownTank(Tank):
     def shoot(self, player_x, player_y):
         self.bulletTimer += 1
         if self.bulletTimer == 75:
-            self.bullets.append(BrownBullet(self.x + self.width, self.y + self.height, player_x, player_y))
             self.bulletTimer = 0
+            return True
+        return False
 
-    def updateBullets(self):
-        for i in range(len(self.bullets)):
-            try:
-                if self.bullets[i].updatePos(self.blocks):
-                    self.bullets.pop(i)
-                    i -= 1
-            except:
-                continue
-
-    def checkHit(self, playerBullets):
+    def checkHit(self, bullets):
         if self.hit and self.explodeCount == self.explodeMax:
             return True
         # Explosion animation
@@ -74,7 +66,7 @@ class BrownTank(Tank):
             self.explodeCount += 1
             return False
         
-        for bullet in playerBullets:
+        for bullet in bullets:
             if (self.x < bullet.x < self.x + self.image.get_width()) and (self.y < bullet.y < self.y + self.image.get_height()):
                 self.hit = True
                 return False
@@ -84,9 +76,6 @@ class BrownTank(Tank):
     def display(self, screen, player_x, player_y):
         # display enemy tank base
         screen.blit(self.image, (self.x, self.y))
-        # display bullets
-        for bullet in self.bullets:
-            screen.blit(bullet.image, (bullet.x, bullet.y))
         # displat enemy tank turret
         turret_img, turret_rect = self.getTurret(player_x, player_y)
         screen.blit(turret_img, turret_rect.topleft)

@@ -2,7 +2,7 @@ import pygame
 import math
 from tank import Tank
 from settings import Settings
-from bullet import Bullet
+from blueBullet import BlueBullet
 from bomb import Bomb
 
 class BlueTank(Tank):
@@ -88,24 +88,14 @@ class BlueTank(Tank):
 
     def shoot(self):
         if pygame.mouse.get_pressed()[0] and self.bulletCount <= self.settings.maxBullets:
-            self.bullets.append(Bullet(self.x + self.width, self.y + self.height))
             self.bulletCount += 1
+            return True
+        return False
 
     def plantBomb(self, keys):
         if keys[pygame.K_SPACE] and self.bombCount <= self.settings.maxBombs:
             self.bombs.append(Bomb(self.x + self.width, self.y + self.height))
             self.bombCount += 1
-
-    def updateBullets(self):
-        for i in range(len(self.bullets)):
-            try:
-                self.bullets[i].updatePos(self.blocks)
-                if self.bullets[i].bounceCount > self.bullets[i].bounceMax:
-                    self.bullets.pop(i)
-                    self.bulletCount -= 1
-                    i -= 1
-            except:
-                continue
 
     def updateBombs(self):
         for i in range(len(self.bombs)):
@@ -118,7 +108,7 @@ class BlueTank(Tank):
             except:
                 continue
 
-    def checkHit(self, enemies):
+    def checkHit(self, bullets):
         if self.hit and self.explodeCount == self.explodeMax:
             return True
         # Explosion animation
@@ -130,15 +120,11 @@ class BlueTank(Tank):
             self.explodeCount += 1
             return False
         
-        for bullet in self.bullets:
+        for bullet in bullets:
             if (self.x < bullet.x < self.x + self.image.get_width()) and (self.y < bullet.y < self.y + self.image.get_height()):
                 self.hit = True
                 return False
-        for enemy in enemies:
-            for bullet in enemy.bullets:
-                if (self.x < bullet.x < self.x + self.image.get_width()) and (self.y < bullet.y < self.y + self.image.get_height()):
-                    self.hit = True
-                    return False
+
         return False
 
     def display(self, screen):

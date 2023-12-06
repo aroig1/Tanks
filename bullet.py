@@ -8,35 +8,14 @@ class Bullet:
         self.x = x
         self.y = y
         self.bounceCount = 0
-        self.bounceMax = 1
 
         self.settings = Settings()
 
-        self.originalImage = pygame.image.load('SpriteImages/Projectiles/bullet1.bmp')
-        self.image = self.originalImage
-        
-        mouse_x, mouse_y = pygame.mouse.get_pos()
+        # Defined better in subclasses
+        self.originalImage = 0
+        self.xVelocity = 0
+        self.yVelocity = 0
 
-        width = mouse_x - (self.x + (self.image.get_width() / 2))
-        height = mouse_y - (self.y + (self.image.get_height() / 2))
-
-        angle = self.rotateImage(width, height)
-
-        if angle >= 0:
-            self.xVelocity = self.settings.bulletSpeed * math.cos(math.radians(angle))
-            self.yVelocity = -1 * self.settings.bulletSpeed * math.sin(math.radians(angle))
-        elif angle >= -90:
-            self.xVelocity = self.settings.bulletSpeed * math.cos(math.radians(angle))
-            self.yVelocity = -1 * self.settings.bulletSpeed * math.sin(math.radians(angle))
-        elif angle >= -180:
-            self.xVelocity = self.settings.bulletSpeed * math.cos(math.radians(angle))
-            self.yVelocity = -1 * self.settings.bulletSpeed * math.sin(math.radians(angle))
-        else:
-            self.xVelocity = self.settings.bulletSpeed * math.cos(math.radians(angle))
-            self.yVelocity = -1 * self.settings.bulletSpeed * math.sin(math.radians(angle))
-
-        self.x += 15 * self.xVelocity
-        self.y += 15 * self.yVelocity
 
     def rotateImage(self, width, height):
         if height != 0:

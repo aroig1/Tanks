@@ -1,20 +1,21 @@
 import pygame
 import math
+from bullet import Bullet
 from settings import Settings
 from block import Block
 
-class BrownBullet:
+class BrownBullet(Bullet):
     def __init__(self, x, y, player_x, player_y):
-        self.x = x
-        self.y = y
 
-        self.settings = Settings()
+        super().__init__(x, y)
 
         self.bulletSpeed = 8
+        self.bounceMax = 0
+        self.type = "enemy"
 
         self.originalImage = pygame.image.load('SpriteImages/Projectiles/bullet1.bmp')
         self.image = self.originalImage
-        
+
         width = player_x - (self.x + (self.image.get_width() / 2))
         height = player_y - (self.y + (self.image.get_height() / 2))
 
@@ -35,27 +36,3 @@ class BrownBullet:
 
         self.x += 15 * self.xVelocity
         self.y += 15 * self.yVelocity
-
-    def rotateImage(self, width, height):
-        if height != 0:
-            angle = math.atan2(width, height)
-            angle = math.degrees(angle)
-            angle = angle - 90
-        else:
-            angle = 0
-
-        self.image = pygame.transform.rotate(self.originalImage, angle)
-        return angle
-
-    def updatePos(self, blocks):
-        self.x += self.xVelocity
-        self.y += self.yVelocity
-        if self.x <= 0 or self.x >= self.settings.screenSize[0]:
-            return True
-        elif self.y <= 0 or self.y >= self.settings.screenSize[1]:
-            return True
-        for block in blocks:
-            if (block.x < self.x < block.x + block.size) and (block.y < self.y < block.y + block.size):
-                return True
-        return False
-
