@@ -1,21 +1,15 @@
 import pygame
 import math
+from tank import Tank
+from settings import Settings
 from brownBullet import BrownBullet
 from block import Block
 
-class BrownTank:
+class BrownTank(Tank):
     def __init__(self, x, y, blocks):
-        self.x = x
-        self.y = y
+        super().__init__(x, y, blocks)
 
-        self.hit = False
-
-        self.explodeImages = [pygame.image.load('SpriteImages/Projectiles/explosion1.png'), pygame.image.load('SpriteImages/Projectiles/explosion2.png'),
-                           pygame.image.load('SpriteImages/Projectiles/explosion3.png'), pygame.image.load('SpriteImages/Projectiles/explosion4.png'),
-                           pygame.image.load('SpriteImages/Projectiles/explosion5.png'), pygame.image.load('SpriteImages/Projectiles/explosion6.png'),
-                           pygame.image.load('SpriteImages/Projectiles/explosion7.png'), pygame.image.load('SpriteImages/Projectiles/explosion8.png')]
-        self.explodeCount = 0
-        self.explodeMax = 8
+        self.bulletTimer = 0
 
         self.image = pygame.image.load('SpriteImages/BrownTank/BrownTank.bmp')
         self.turret = pygame.image.load('SpriteImages/BrownTank/BrownTurret.bmp')
@@ -25,11 +19,6 @@ class BrownTank:
 
         self.width = (self.image.get_width() / 2)
         self.height = (self.image.get_height() / 2)
-
-        self.bullets = []
-        self.bulletTimer = 0
-
-        self.blocks = blocks
 
     def getTurret(self, player_x, player_y):
 

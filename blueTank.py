@@ -1,33 +1,18 @@
 import pygame
 import math
+from tank import Tank
 from settings import Settings
 from bullet import Bullet
 from bomb import Bomb
 
-class BlueTank:
+class BlueTank(Tank):
     def __init__(self, x, y, blocks):
+        super().__init__(x, y, blocks)
 
-        self.x = x
-        self.y = y
-
-        self.bullets = []
         self.bulletCount = 0
 
         self.bombs = []
         self.bombCount = 0
-
-        self.hit = False
-
-        self.explodeImages = [pygame.image.load('SpriteImages/Projectiles/explosion1.png'), pygame.image.load('SpriteImages/Projectiles/explosion2.png'),
-                           pygame.image.load('SpriteImages/Projectiles/explosion3.png'), pygame.image.load('SpriteImages/Projectiles/explosion4.png'),
-                           pygame.image.load('SpriteImages/Projectiles/explosion5.png'), pygame.image.load('SpriteImages/Projectiles/explosion6.png'),
-                           pygame.image.load('SpriteImages/Projectiles/explosion7.png'), pygame.image.load('SpriteImages/Projectiles/explosion8.png')]
-        self.explodeCount = 0
-        self.explodeMax = 8
-
-        self.blocks = blocks
-
-        self.settings = Settings()
 
         self.sprites = [pygame.image.load('SpriteImages/BlueTank/BlueTank1.bmp'), pygame.image.load('SpriteImages/BlueTank/BlueTank2.bmp'),
                         pygame.image.load('SpriteImages/BlueTank/BlueTank3.bmp'), pygame.image.load('SpriteImages/BlueTank/BlueTank4.bmp')]
