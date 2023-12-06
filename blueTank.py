@@ -16,6 +16,15 @@ class BlueTank:
         self.bombs = []
         self.bombCount = 0
 
+        self.hit = False
+
+        self.explodeImages = [pygame.image.load('SpriteImages/Projectiles/explosion1.png'), pygame.image.load('SpriteImages/Projectiles/explosion2.png'),
+                           pygame.image.load('SpriteImages/Projectiles/explosion3.png'), pygame.image.load('SpriteImages/Projectiles/explosion4.png'),
+                           pygame.image.load('SpriteImages/Projectiles/explosion5.png'), pygame.image.load('SpriteImages/Projectiles/explosion6.png'),
+                           pygame.image.load('SpriteImages/Projectiles/explosion7.png'), pygame.image.load('SpriteImages/Projectiles/explosion8.png')]
+        self.explodeCount = 0
+        self.explodeMax = 8
+
         self.blocks = blocks
 
         self.settings = Settings()
@@ -123,6 +132,29 @@ class BlueTank:
                     i -= 1
             except:
                 continue
+
+    def checkHit(self, enemies):
+        if self.hit and self.explodeCount == self.explodeMax:
+            return True
+        # Explosion animation
+        elif self.hit and self.explodeCount < self.explodeMax:
+            self.image = self.explodeImages[self.explodeCount]
+            self.turret = self.explodeImages[self.explodeCount]
+            self.x -= 10
+            self.y -= 5
+            self.explodeCount += 1
+            return False
+        
+        for bullet in self.bullets:
+            if (self.x < bullet.x < self.x + self.image.get_width()) and (self.y < bullet.y < self.y + self.image.get_height()):
+                self.hit = True
+                return False
+        for enemy in enemies:
+            for bullet in enemy.bullets:
+                if (self.x < bullet.x < self.x + self.image.get_width()) and (self.y < bullet.y < self.y + self.image.get_height()):
+                    self.hit = True
+                    return False
+        return False
 
     def display(self, screen):
         # display bombs

@@ -5,7 +5,11 @@
     },
     "enemies" : [
         {
-            "coordinates" : [1100, 450],
+            "coordinates" : [1100, 300],
+            "color" : "Brown"
+        },
+        {
+            "coordinates" : [1100, 600],
             "color" : "Brown"
         }
     ],

@@ -23,65 +23,85 @@ class TanksGame:
         self.enemies = []
 
         self.gameRunning = True
+        self.levelRunning = True
 
     def runGame(self):
-        self.loadLevel()
-
         while self.gameRunning:
-            pygame.time.delay(10)
 
-            keys = pygame.key.get_pressed()
+            self.blocks = []
+            self.player = 0
+            self.enemies = []
 
-            ## Movement
-            if keys[pygame.K_w] and keys[pygame.K_d]:
-                self.player.image = self.player.sprites[1]
-                self.player.move(math.sqrt(self.settings.tankSpeed**2 / 2), -1 * math.sqrt(self.settings.tankSpeed**2 / 2))
-            elif keys[pygame.K_d] and keys[pygame.K_s]:
-                self.player.image = self.player.sprites[3]
-                self.player.move(math.sqrt(self.settings.tankSpeed**2 / 2), math.sqrt(self.settings.tankSpeed**2 / 2))
-            elif keys[pygame.K_s] and keys[pygame.K_a]:
-                self.player.image = self.player.sprites[1]
-                self.player.move(-1 * math.sqrt(self.settings.tankSpeed**2 / 2), math.sqrt(self.settings.tankSpeed**2 / 2))
-            elif keys[pygame.K_a] and keys[pygame.K_w]:
-                self.player.image = self.player.sprites[3]
-                self.player.move(-1 * math.sqrt(self.settings.tankSpeed**2 / 2), -1 * math.sqrt(self.settings.tankSpeed**2 / 2))
-            elif keys[pygame.K_w]:
-                self.player.image = self.player.sprites[0]
-                self.player.move(0, -1 * self.settings.tankSpeed)
-            elif keys[pygame.K_d]:
-                self.player.image = self.player.sprites[2]
-                self.player.move(self.settings.tankSpeed, 0)
-            elif keys[pygame.K_s]:
-                self.player.image = self.player.sprites[0]
-                self.player.move(0, self.settings.tankSpeed)
-            elif keys[pygame.K_a]:
-                self.player.image = self.player.sprites[2]
-                self.player.move(-1 * self.settings.tankSpeed, 0)
+            self.levelRunning = True
+            self.loadLevel()
 
-        
-            # Shoot bullets
-            self.player.shoot()
+            while self.levelRunning and len(self.enemies) > 0:
+                pygame.time.delay(5)
 
-            # Place bombs
-            self.player.plantBomb(keys)
+                keys = pygame.key.get_pressed()
 
-            # Update enemies
-            for enemy in self.enemies:
-                enemy.shoot(self.player.x + self.player.width, self.player.y + self.player.height)
-                enemy.updateBullets()
+                ## Movement
+                if keys[pygame.K_w] and keys[pygame.K_d]:
+                    self.player.image = self.player.sprites[1]
+                    self.player.move(math.sqrt(self.settings.tankSpeed**2 / 2), -1 * math.sqrt(self.settings.tankSpeed**2 / 2))
+                elif keys[pygame.K_d] and keys[pygame.K_s]:
+                    self.player.image = self.player.sprites[3]
+                    self.player.move(math.sqrt(self.settings.tankSpeed**2 / 2), math.sqrt(self.settings.tankSpeed**2 / 2))
+                elif keys[pygame.K_s] and keys[pygame.K_a]:
+                    self.player.image = self.player.sprites[1]
+                    self.player.move(-1 * math.sqrt(self.settings.tankSpeed**2 / 2), math.sqrt(self.settings.tankSpeed**2 / 2))
+                elif keys[pygame.K_a] and keys[pygame.K_w]:
+                    self.player.image = self.player.sprites[3]
+                    self.player.move(-1 * math.sqrt(self.settings.tankSpeed**2 / 2), -1 * math.sqrt(self.settings.tankSpeed**2 / 2))
+                elif keys[pygame.K_w]:
+                    self.player.image = self.player.sprites[0]
+                    self.player.move(0, -1 * self.settings.tankSpeed)
+                elif keys[pygame.K_d]:
+                    self.player.image = self.player.sprites[2]
+                    self.player.move(self.settings.tankSpeed, 0)
+                elif keys[pygame.K_s]:
+                    self.player.image = self.player.sprites[0]
+                    self.player.move(0, self.settings.tankSpeed)
+                elif keys[pygame.K_a]:
+                    self.player.image = self.player.sprites[2]
+                    self.player.move(-1 * self.settings.tankSpeed, 0)
 
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.gameRunning = False
+            
+                # Shoot bullets
+                self.player.shoot()
 
-            # Update / Remove Bullets
-            self.player.updateBullets()
+                # Place bombs
+                self.player.plantBomb(keys)
 
-            # Update / Explode Bombs
-            self.player.updateBombs()
+                # Update enemies
+                for i in range(len(self.enemies)):
+                    try:
+                        self.enemies[i].shoot(self.player.x + self.player.width, self.player.y + self.player.height)
+                        self.enemies[i].updateBullets()
+                        if self.enemies[i].checkHit(self.player.bullets):
+                            self.enemies.pop(i)
+                            i -= 1
+                    except:
+                        continue
 
-            self.displayScreen()
-        
+
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        self.gameRunning = False
+                        self.levelRunning = False
+                        break
+
+                # Update / Remove Bullets
+                self.player.updateBullets()
+
+                # Update / Explode Bombs
+                self.player.updateBombs()
+
+                # Check if player hit
+                self.levelRunning = not self.player.checkHit(self.enemies)
+    
+                self.displayScreen()
+            
         pygame.quit()
 
     def displayScreen(self):
