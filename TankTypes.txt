@@ -1,4 +1,8 @@
+Tank:
+    - Base Class
+
 Blue Tank:
+    - subclass of Tank
     - Player
     - bullets bounce once
     - can plant bombs

@@ -4,7 +4,7 @@ import json
 from settings import Settings
 from blueTank import BlueTank
 from brownTank import BrownTank
-#from bullet import Bullet
+from bullet import Bullet
 from brownBullet import BrownBullet
 from blueBullet import BlueBullet
 from bomb import Bomb
@@ -45,32 +45,8 @@ class TanksGame:
 
                 keys = pygame.key.get_pressed()
 
-                ## Movement
-                if keys[pygame.K_w] and keys[pygame.K_d]:
-                    self.player.image = self.player.sprites[1]
-                    self.player.move(math.sqrt(self.settings.tankSpeed**2 / 2), -1 * math.sqrt(self.settings.tankSpeed**2 / 2))
-                elif keys[pygame.K_d] and keys[pygame.K_s]:
-                    self.player.image = self.player.sprites[3]
-                    self.player.move(math.sqrt(self.settings.tankSpeed**2 / 2), math.sqrt(self.settings.tankSpeed**2 / 2))
-                elif keys[pygame.K_s] and keys[pygame.K_a]:
-                    self.player.image = self.player.sprites[1]
-                    self.player.move(-1 * math.sqrt(self.settings.tankSpeed**2 / 2), math.sqrt(self.settings.tankSpeed**2 / 2))
-                elif keys[pygame.K_a] and keys[pygame.K_w]:
-                    self.player.image = self.player.sprites[3]
-                    self.player.move(-1 * math.sqrt(self.settings.tankSpeed**2 / 2), -1 * math.sqrt(self.settings.tankSpeed**2 / 2))
-                elif keys[pygame.K_w]:
-                    self.player.image = self.player.sprites[0]
-                    self.player.move(0, -1 * self.settings.tankSpeed)
-                elif keys[pygame.K_d]:
-                    self.player.image = self.player.sprites[2]
-                    self.player.move(self.settings.tankSpeed, 0)
-                elif keys[pygame.K_s]:
-                    self.player.image = self.player.sprites[0]
-                    self.player.move(0, self.settings.tankSpeed)
-                elif keys[pygame.K_a]:
-                    self.player.image = self.player.sprites[2]
-                    self.player.move(-1 * self.settings.tankSpeed, 0)
-
+                # Move player tank
+                self.movePlayer(keys)
             
                 # Shoot bullets
                 if self.player.shoot():
@@ -80,15 +56,11 @@ class TanksGame:
                 self.player.plantBomb(keys)
 
                 # Update enemies
-                for i in range(len(self.enemies)):
-                    try:
-                        if self.enemies[i].shoot(self.player.x + self.player.width, self.player.y + self.player.height):
-                            self.bullets.append(BrownBullet(self.enemies[i].x + self.enemies[i].width, self.enemies[i].y + self.enemies[i].height, self.player.x, self.player.y))
-                        if self.enemies[i].checkHit(self.bullets):
-                            self.enemies.pop(i)
-                            i -= 1
-                    except:
-                        continue
+                for enemy in self.enemies:
+                    if enemy.shoot(self.player.x + self.player.width, self.player.y + self.player.height):
+                        self.bullets.append(BrownBullet(enemy.x + enemy.width, enemy.y + enemy.height, self.player.x, self.player.y))
+                    if enemy.checkHit(self.bullets):
+                        self.enemies.remove(enemy)
 
 
                 for event in pygame.event.get():
@@ -96,6 +68,8 @@ class TanksGame:
                         self.gameRunning = False
                         self.levelRunning = False
                         break
+                if not self.levelRunning:
+                    break
 
                 # Update / Remove Bullets
                 self.updateBullets()
@@ -144,17 +118,40 @@ class TanksGame:
             player = data['player']
             self.player = BlueTank(player['coordinates'][0], player['coordinates'][1], self.blocks)
 
+    def movePlayer(self, keys):
+        ## Movement
+        if keys[pygame.K_w] and keys[pygame.K_d]:
+            self.player.image = self.player.sprites[1]
+            self.player.move(math.sqrt(self.settings.tankSpeed**2 / 2), -1 * math.sqrt(self.settings.tankSpeed**2 / 2))
+        elif keys[pygame.K_d] and keys[pygame.K_s]:
+            self.player.image = self.player.sprites[3]
+            self.player.move(math.sqrt(self.settings.tankSpeed**2 / 2), math.sqrt(self.settings.tankSpeed**2 / 2))
+        elif keys[pygame.K_s] and keys[pygame.K_a]:
+            self.player.image = self.player.sprites[1]
+            self.player.move(-1 * math.sqrt(self.settings.tankSpeed**2 / 2), math.sqrt(self.settings.tankSpeed**2 / 2))
+        elif keys[pygame.K_a] and keys[pygame.K_w]:
+            self.player.image = self.player.sprites[3]
+            self.player.move(-1 * math.sqrt(self.settings.tankSpeed**2 / 2), -1 * math.sqrt(self.settings.tankSpeed**2 / 2))
+        elif keys[pygame.K_w]:
+            self.player.image = self.player.sprites[0]
+            self.player.move(0, -1 * self.settings.tankSpeed)
+        elif keys[pygame.K_d]:
+            self.player.image = self.player.sprites[2]
+            self.player.move(self.settings.tankSpeed, 0)
+        elif keys[pygame.K_s]:
+            self.player.image = self.player.sprites[0]
+            self.player.move(0, self.settings.tankSpeed)
+        elif keys[pygame.K_a]:
+            self.player.image = self.player.sprites[2]
+            self.player.move(-1 * self.settings.tankSpeed, 0)
+
     def updateBullets(self):
-        for i in range(len(self.bullets)):
-            try:
-                self.bullets[i].updatePos(self.blocks)
-                if self.bullets[i].bounceCount > self.bullets[i].bounceMax:
-                    self.bullets.pop(i)
-                    i -= 1
-                    if self.bullets[i].type == "player":
-                        self.player.bulletCount -= 1
-            except:
-                continue
+        for bullet in self.bullets:
+            bullet.updatePos(self.blocks)
+            if bullet.bounceCount > bullet.bounceMax:
+                if bullet.type == "player":
+                    self.player.bulletCount -= 1
+                self.bullets.remove(bullet)
 
 if __name__ == '__main__':
     game = TanksGame()
