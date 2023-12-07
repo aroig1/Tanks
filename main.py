@@ -18,9 +18,9 @@ class TanksGame:
         self.settings = Settings()
         self.screen = pygame.display.set_mode(self.settings.screenSize)
         pygame.display.set_caption("Tanks")
-        self.background = pygame.image.load('mapImages/woodbackground.png')
+        self.background = pygame.image.load('mapImages/woodBackground.png')
 
-        self.levels = ['level1.json']
+        self.levels = ['level1.json', 'level2.json']
 
         self.blocks = []
 
@@ -42,6 +42,8 @@ class TanksGame:
             self.player = 0
             self.enemies = []
             self.bullets = []
+
+            level = level % 2 ## retained under max level limit
 
             self.levelRunning = True
             self.loadLevel(level)
@@ -66,9 +68,9 @@ class TanksGame:
                     if enemy.shoot(self.player.x + self.player.width, self.player.y + self.player.height):
                         match enemy.color:
                             case 'brown':
-                                self.bullets.append(BrownBullet(enemy.x + enemy.width, enemy.y + enemy.height, self.player.x, self.player.y))
+                                self.bullets.append(BrownBullet(enemy.x + enemy.width, enemy.y + enemy.height, self.player.x + self.player.width / 2, self.player.y + self.player.height / 2))
                             case 'green':
-                                self.bullets.append(FireBullet(enemy.x + enemy.width, enemy.y + enemy.height, self.player.x, self.player.y))
+                                self.bullets.append(FireBullet(enemy.x + enemy.width, enemy.y + enemy.height, self.player.x + self.player.width / 2, self.player.y + self.player.height / 2))
                     if enemy.checkHit(self.bullets):
                         self.enemies.remove(enemy)
 
@@ -91,6 +93,11 @@ class TanksGame:
                 self.levelRunning = not self.player.checkHit(self.bullets)
     
                 self.displayScreen()
+
+            if not self.player.hit:
+                level += 1
+            else:
+                level = 0
             
         pygame.quit()
 

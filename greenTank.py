@@ -11,7 +11,7 @@ class GreenTank(StillEnemyTank):
 
         self.color = 'green'
 
-        self.bulletTimer = 0
+        self.bulletTimer = 99
         self.bulletTimerMax = 100
 
         self.image = pygame.image.load('SpriteImages/GreenTank/GreenTank.bmp')

@@ -11,7 +11,7 @@ class BrownTank(StillEnemyTank):
 
         self.color = 'brown'
 
-        self.bulletTimer = 0
+        self.bulletTimer = 74
         self.bulletTimerMax = 75
 
         self.image = pygame.image.load('SpriteImages/BrownTank/BrownTank.bmp')
