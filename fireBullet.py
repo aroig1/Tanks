@@ -4,16 +4,16 @@ from bullet import Bullet
 from settings import Settings
 from block import Block
 
-class BrownBullet(Bullet):
+class FireBullet(Bullet):
     def __init__(self, x, y, player_x, player_y):
 
         super().__init__(x, y)
 
-        self.bulletSpeed = 8
+        self.bulletSpeed = 15
         self.bounceMax = 0
         self.type = "enemy"
 
-        self.originalImage = pygame.image.load('SpriteImages/Projectiles/bullet.bmp')
+        self.originalImage = pygame.image.load('SpriteImages/Projectiles/fireBullet.bmp')
         self.image = self.originalImage
 
         width = player_x - (self.x + (self.image.get_width() / 2))

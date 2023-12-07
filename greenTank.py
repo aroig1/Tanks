@@ -5,17 +5,17 @@ from settings import Settings
 from brownBullet import BrownBullet
 from block import Block
 
-class BrownTank(StillEnemyTank):
+class GreenTank(StillEnemyTank):
     def __init__(self, x, y, blocks):
         super().__init__(x, y, blocks)
 
-        self.color = 'brown'
+        self.color = 'green'
 
         self.bulletTimer = 0
-        self.bulletTimerMax = 75
+        self.bulletTimerMax = 100
 
-        self.image = pygame.image.load('SpriteImages/BrownTank/BrownTank.bmp')
-        self.turret = pygame.image.load('SpriteImages/BrownTank/BrownTurret.bmp')
+        self.image = pygame.image.load('SpriteImages/GreenTank/GreenTank.bmp')
+        self.turret = pygame.image.load('SpriteImages/GreenTank/GreenTurret.bmp')
 
         self.turretX = self.x + (self.image.get_width() / 2) - (self.turret.get_width() / 2)
         self.turretY = self.y + (self.image.get_height() / 2) - 80

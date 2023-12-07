@@ -4,9 +4,11 @@ import json
 from settings import Settings
 from blueTank import BlueTank
 from brownTank import BrownTank
+from greenTank import GreenTank
 from bullet import Bullet
 from brownBullet import BrownBullet
 from blueBullet import BlueBullet
+from fireBullet import FireBullet
 from bomb import Bomb
 from block import Block
 
@@ -17,6 +19,8 @@ class TanksGame:
         self.screen = pygame.display.set_mode(self.settings.screenSize)
         pygame.display.set_caption("Tanks")
         self.background = pygame.image.load('mapImages/woodbackground.png')
+
+        self.levels = ['level1.json']
 
         self.blocks = []
 
@@ -30,6 +34,8 @@ class TanksGame:
         self.levelRunning = True
 
     def runGame(self):
+        level = 0
+
         while self.gameRunning:
 
             self.blocks = []
@@ -38,7 +44,7 @@ class TanksGame:
             self.bullets = []
 
             self.levelRunning = True
-            self.loadLevel()
+            self.loadLevel(level)
 
             while self.levelRunning and len(self.enemies) > 0:
                 pygame.time.delay(5)
@@ -58,7 +64,11 @@ class TanksGame:
                 # Update enemies
                 for enemy in self.enemies:
                     if enemy.shoot(self.player.x + self.player.width, self.player.y + self.player.height):
-                        self.bullets.append(BrownBullet(enemy.x + enemy.width, enemy.y + enemy.height, self.player.x, self.player.y))
+                        match enemy.color:
+                            case 'brown':
+                                self.bullets.append(BrownBullet(enemy.x + enemy.width, enemy.y + enemy.height, self.player.x, self.player.y))
+                            case 'green':
+                                self.bullets.append(FireBullet(enemy.x + enemy.width, enemy.y + enemy.height, self.player.x, self.player.y))
                     if enemy.checkHit(self.bullets):
                         self.enemies.remove(enemy)
 
@@ -106,14 +116,18 @@ class TanksGame:
         # update display
         pygame.display.update()
 
-    def loadLevel(self):
-        with open('level1.json') as levels_file:
+    def loadLevel(self, i):
+        with open(self.levels[i]) as levels_file:
             data = json.load(levels_file)
             for block in data['permanentBlocks']:
                 self.blocks.append(Block(block['coordinates'][0], block['coordinates'][1], block['texture']))
 
             for enemy in data['enemies']:
-                self.enemies.append(BrownTank(enemy['coordinates'][0], enemy['coordinates'][1], self.blocks))
+                match enemy['color']:
+                    case 'brown':
+                        self.enemies.append(BrownTank(enemy['coordinates'][0], enemy['coordinates'][1], self.blocks))
+                    case 'green':
+                        self.enemies.append(GreenTank(enemy['coordinates'][0], enemy['coordinates'][1], self.blocks))
 
             player = data['player']
             self.player = BlueTank(player['coordinates'][0], player['coordinates'][1], self.blocks)

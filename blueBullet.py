@@ -12,7 +12,7 @@ class BlueBullet(Bullet):
         self.bounceMax = 1
         self.type = "player"
 
-        self.originalImage = pygame.image.load('SpriteImages/Projectiles/bullet1.bmp')
+        self.originalImage = pygame.image.load('SpriteImages/Projectiles/bullet.bmp')
         self.image = self.originalImage
 
         mouse_x, mouse_y = pygame.mouse.get_pos()
