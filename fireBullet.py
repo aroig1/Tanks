@@ -9,7 +9,7 @@ class FireBullet(Bullet):
 
         super().__init__(x, y)
 
-        self.bulletSpeed = 15
+        self.bulletSpeed = 20
         self.bounceMax = 0
         self.type = "enemy"
 

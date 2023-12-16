@@ -18,7 +18,9 @@ class TanksGame:
         self.settings = Settings()
         self.screen = pygame.display.set_mode(self.settings.screenSize)
         pygame.display.set_caption("Tanks")
-        self.background = pygame.image.load('mapImages/woodBackground.png')
+        pygame.mouse.set_visible(False)
+
+        self.background = pygame.image.load('mapImages/concreteBackground.png')
 
         self.levels = ['level1.json', 'level2.json']
 
@@ -49,7 +51,7 @@ class TanksGame:
             self.loadLevel(level)
 
             while self.levelRunning and len(self.enemies) > 0:
-                pygame.time.delay(5)
+                pygame.time.delay(25)
 
                 keys = pygame.key.get_pressed()
 
@@ -113,12 +115,12 @@ class TanksGame:
         for bullet in self.bullets:
             self.screen.blit(bullet.image, (bullet.x, bullet.y))
 
-        # display all player tank items
-        self.player.display(self.screen)
-
         # display enemies
         for enemy in self.enemies:
             enemy.display(self.screen, self.player.x + self.player.width, self.player.y + self.player.height)
+
+        # display all player tank items
+        self.player.display(self.screen)
 
         # update display
         pygame.display.update()

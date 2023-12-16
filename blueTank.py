@@ -22,6 +22,10 @@ class BlueTank(Tank):
         self.turretX = self.x + (self.image.get_width() / 2) - (self.turret.get_width() / 2)
         self.turretY = self.y + (self.image.get_height() / 2) - 80
 
+        self.crosshair = pygame.image.load('SpriteImages/BlueTank/crosshair.bmp')
+        self.aimDot = pygame.image.load('SpriteImages/BlueTank/aimDot.bmp')
+        self.crosshairSize = self.crosshair.get_width()
+
         self.width = (self.image.get_width() / 2)
         self.height = (self.image.get_height() / 2)
 
@@ -131,11 +135,25 @@ class BlueTank(Tank):
         # display bombs
         for bomb in self.bombs:
             screen.blit(bomb.image, (bomb.x, bomb.y))
-        # display tank base
-        screen.blit(self.image, (self.x, self.y))
+        # Display Crosshair
+        self.displayCrosshair(screen)
         # display bullets
         for bullet in self.bullets:
             screen.blit(bullet.image, (bullet.x, bullet.y))
+        # display tank base
+        screen.blit(self.image, (self.x, self.y))
         # display tank turret
         turret_img, turret_rect = self.getTurret()
         screen.blit(turret_img, turret_rect.topleft)
+
+    def displayCrosshair(self, screen):
+        x, y = pygame.mouse.get_pos()
+        x = x - self.crosshairSize / 2
+        y =  y - self.crosshairSize / 2
+
+        screen.blit(self.crosshair, (x, y))
+
+        for i in range(1, 8):
+            tempX = ((x - self.x) / 8) * i  + self.crosshairSize / 2 + self.x
+            tempY = ((y - self.y) / 8) * i  + self.crosshairSize / 2 + self.y
+            screen.blit(self.aimDot, (tempX, tempY))
