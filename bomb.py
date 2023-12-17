@@ -2,12 +2,13 @@ import pygame
 from settings import Settings
 
 class Bomb:
-    def __init__(self, x, y):
+    def __init__(self, x, y, type='player'):
         self.x = x
         self.y = y
         self.timer = 0
         self.countdown = 50
         self.color = 0
+        self.type = type
 
         self.images = [pygame.image.load('SpriteImages/Projectiles/bombYellow.bmp'), pygame.image.load('SpriteImages/Projectiles/bombRed.bmp')]
         self.image = self.images[0]
@@ -47,3 +48,9 @@ class Bomb:
             self.timer = 0
             self.countdown -= 10
 
+    def checkBlockCollision(self, blocks):
+        for block in blocks:
+            if block.type == 'destroyable':
+                if block.x <= self.x <= block.x + block.size or block.x <= self.x + self.image.get_width() <= block.x + block.size:
+                    if block.y <= self.y <= block.y + block.size or block.y <= self.y + self.image.get_height() <= block.y + block.size:
+                        blocks.remove(block)
