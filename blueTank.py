@@ -11,7 +11,6 @@ class BlueTank(Tank):
 
         self.bulletCount = 0
 
-        self.bombs = []
         self.bombCount = 0
 
         self.sprites = [pygame.image.load('SpriteImages/BlueTank/BlueTank1.bmp'), pygame.image.load('SpriteImages/BlueTank/BlueTank2.bmp'),
@@ -98,43 +97,11 @@ class BlueTank(Tank):
 
     def plantBomb(self, keys):
         if keys[pygame.K_SPACE] and self.bombCount <= self.settings.maxBombs:
-            self.bombs.append(Bomb(self.x + self.width, self.y + self.height))
             self.bombCount += 1
-
-    def updateBombs(self):
-        for i in range(len(self.bombs)):
-            try:
-                self.bombs[i].update()
-                if self.bombs[i].explodeCount >= self.bombs[i].explodeMax:
-                    self.bombs.pop(i)
-                    self.bombCount -= 1
-                    i -= 1
-            except:
-                continue
-
-    def checkHit(self, bullets):
-        if self.hit and self.explodeCount == self.explodeMax:
             return True
-        # Explosion animation
-        elif self.hit and self.explodeCount < self.explodeMax:
-            self.image = self.explodeImages[self.explodeCount]
-            self.turret = self.explodeImages[self.explodeCount]
-            self.x -= 10
-            self.y -= 5
-            self.explodeCount += 1
-            return False
-        
-        for bullet in bullets:
-            if (self.x < bullet.x < self.x + self.image.get_width()) and (self.y < bullet.y < self.y + self.image.get_height()):
-                self.hit = True
-                return False
-
         return False
 
     def display(self, screen):
-        # display bombs
-        for bomb in self.bombs:
-            screen.blit(bomb.image, (bomb.x, bomb.y))
         # Display Crosshair
         self.displayCrosshair(screen)
         # display bullets

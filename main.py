@@ -25,12 +25,15 @@ class TanksGame:
         self.levels = ['level1.json', 'level2.json']
 
         self.blocks = []
+        self.destroyBlocks = []
 
         self.player = 0
 
         self.enemies = []
 
         self.bullets = []
+
+        self.bombs = []
 
         self.gameRunning = True
         self.levelRunning = True
@@ -63,7 +66,8 @@ class TanksGame:
                     self.bullets.append(BlueBullet(self.player.x + self.player.width, self.player.y + self.player.height))
 
                 # Place bombs
-                self.player.plantBomb(keys)
+                if self.player.plantBomb(keys):
+                    self.bombs.append(Bomb(self.player.x + self.player.width, self.player.y + self.player.height))
 
                 # Update enemies
                 for enemy in self.enemies:
@@ -89,7 +93,7 @@ class TanksGame:
                 self.updateBullets()
 
                 # Update / Explode Bombs
-                self.player.updateBombs()
+                self.updateBombs()
 
                 # Check if player hit
                 self.levelRunning = not self.player.checkHit(self.bullets)
@@ -115,6 +119,10 @@ class TanksGame:
         for bullet in self.bullets:
             self.screen.blit(bullet.image, (bullet.x, bullet.y))
 
+        # display bombs
+        for bomb in self.bombs:
+            self.screen.blit(bomb.image, (bomb.x, bomb.y))
+
         # display enemies
         for enemy in self.enemies:
             enemy.display(self.screen, self.player.x + self.player.width, self.player.y + self.player.height)
@@ -130,6 +138,10 @@ class TanksGame:
             data = json.load(levels_file)
             for block in data['permanentBlocks']:
                 self.blocks.append(Block(block['coordinates'][0], block['coordinates'][1], block['texture']))
+
+            for block in data['destroyableBlocks']:
+                self.blocks.append(Block(block['coordinates'][0], block['coordinates'][1], block['texture']))
+                self.destroyBlocks.append(Block(block['coordinates'][0], block['coordinates'][1], block['texture']))
 
             for enemy in data['enemies']:
                 match enemy['color']:
@@ -175,6 +187,13 @@ class TanksGame:
                 if bullet.type == "player":
                     self.player.bulletCount -= 1
                 self.bullets.remove(bullet)
+
+    def updateBombs(self):
+        for bomb in self.bombs:
+            bomb.update()
+            if bomb.explodeCount >= bomb.explodeMax:
+                self.bombs.remove(bomb)
+                self.player.bombCount -= 1
 
 if __name__ == '__main__':
     game = TanksGame()

@@ -16,43 +16,45 @@
     "permanentBlocks" : [
         {
             "coordinates" : [400, 250],
-            "texture" : 0
+            "texture" : "oak"
         },
         {
             "coordinates" : [400, 325],
-            "texture" : 1
+            "texture" : "birch"
         },
         {
             "coordinates" : [400, 550],
-            "texture" : 1
+            "texture" : "birch"
         },
         {
             "coordinates" : [400, 625],
-            "texture" : 0
+            "texture" : "oak"
         },
         {
             "coordinates" : [750, 250],
-            "texture" : 0
+            "texture" : "oak"
         },
         {
             "coordinates" : [750, 325],
-            "texture" : 1
-        },
-        {
-            "coordinates" : [750, 400],
-            "texture" : 2
-        },
-        {
-            "coordinates" : [750, 475],
-            "texture" : 2
+            "texture" : "birch"
         },
         {
             "coordinates" : [750, 550],
-            "texture" : 1
+            "texture" : "birch"
         },
         {
             "coordinates" : [750, 625],
-            "texture" : 0
+            "texture" : "oak"
+        }
+    ],
+    "destroyableBlocks" : [
+        {
+            "coordinates" : [750, 400],
+            "texture" : "gravel"
+        },
+        {
+            "coordinates" : [750, 475],
+            "texture" : "gravel"
         }
     ]
 }

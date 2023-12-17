@@ -51,26 +51,6 @@ class StillEnemyTank(Tank):
             return True
         return False
 
-    def checkHit(self, bullets):
-        if self.hit and self.explodeCount == self.explodeMax:
-            return True
-        # Explosion animation
-        elif self.hit and self.explodeCount < self.explodeMax:
-            self.image = self.explodeImages[self.explodeCount]
-            self.turret = self.explodeImages[self.explodeCount]
-            self.x -= 10
-            self.y -= 5
-            self.explodeCount += 1
-            return False
-        
-        for bullet in bullets:
-            if (self.x < bullet.x < self.x + self.image.get_width()) and (self.y < bullet.y < self.y + self.image.get_height()):
-                self.hit = True
-                bullets.remove(bullet)
-                return False
-            
-        return False
-
     def display(self, screen, player_x, player_y):
         # display enemy tank base
         screen.blit(self.image, (self.x, self.y))
