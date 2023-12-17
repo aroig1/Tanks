@@ -66,14 +66,14 @@ class BlueTank(Tank):
         self.y += y
         self.turretX = self.x + (self.image.get_width() / 2) - (self.turret.get_width() / 2)
         self.turretY = self.y + (self.image.get_height() / 2) - 80
-        if self.x <= 0:
-            self.x = 0
-        elif self.x >= self.settings.screenSize[0] - self.image.get_width():
-            self.x = self.settings.screenSize[0] - self.image.get_width()
-        elif self.y <= 0:
-            self.y = 0
-        elif self.y >= self.settings.screenSize[1] - self.image.get_height():
-            self.y = self.settings.screenSize[1] - self.image.get_height()
+        if self.x <= 20:
+            self.x = 20
+        if self.x >= self.settings.screenSize[0] - self.image.get_width() - 25:
+            self.x = self.settings.screenSize[0] - self.image.get_width() - 25
+        if self.y <= 30:
+            self.y = 30
+        if self.y >= self.settings.screenSize[1] - self.image.get_height() - 25:
+            self.y = self.settings.screenSize[1] - self.image.get_height() - 25
         for block in self.blocks:
             if (block.x <= self.x + self.image.get_width() <= block.x + (block.size / 2)) and ((block.y < self.y < block.y + block.size) or (block.y < self.y + self.image.get_height() < block.y + block.size)): # Left border bounce
                 self.x = block.x - self.image.get_width() - 1

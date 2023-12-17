@@ -20,9 +20,9 @@ class TanksGame:
         pygame.display.set_caption("Tanks")
         pygame.mouse.set_visible(False)
 
-        self.background = pygame.image.load('mapImages/concreteBackground.png')
+        self.background = pygame.image.load('mapImages/woodBackground.png')
 
-        self.levels = ['level1.json', 'level2.json']
+        self.levels = ['levels/level1.json', 'levels/level2.json']
 
         self.blocks = []
         self.destroyBlocks = []
@@ -40,6 +40,7 @@ class TanksGame:
 
     def runGame(self):
         level = 0
+        maxLevel = 2
 
         while self.gameRunning:
 
@@ -49,13 +50,13 @@ class TanksGame:
             self.bullets = []
             self.bombs = []
 
-            level = level % 2 ## retained under max level limit
+            level = level % maxLevel
 
             self.levelRunning = True
             self.loadLevel(level)
 
             while self.levelRunning and len(self.enemies) > 0:
-                pygame.time.delay(25)
+                pygame.time.delay(5)
 
                 keys = pygame.key.get_pressed()
 

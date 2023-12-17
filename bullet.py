@@ -31,11 +31,11 @@ class Bullet:
     def updatePos(self, blocks):
         self.x += self.xVelocity
         self.y += self.yVelocity
-        if self.x <= 0 or self.x + 10 >= self.settings.screenSize[0]:
+        if self.x <= 30 or self.x + self.image.get_width() >= self.settings.screenSize[0] - 30:
             self.xVelocity *= -1
             self.rotateImage(self.xVelocity, self.yVelocity)
             self.bounceCount += 1
-        elif self.y <= 0 or self.y + 10 >= self.settings.screenSize[1]:
+        elif self.y <= 35 or self.y + self.image.get_height() >= self.settings.screenSize[1] - 30:
             self.yVelocity *= -1
             self.rotateImage(self.xVelocity, self.yVelocity)
             self.bounceCount += 1
