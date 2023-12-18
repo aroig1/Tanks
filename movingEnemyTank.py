@@ -11,14 +11,15 @@ class MovingEnemyTank(Tank):
         super().__init__(x, y, blocks)
 
         self.moveTimer = 0
-        self.moveTimerMax = 200
+        self.moveTimerMax = 150
         self.moveStep = 0
         self.path = []
-        self.speed = 1
+        self.speed = 3
 
         # Defined further is subclass
         self.bulletTimer = 0
         self.bulletTimerMax = 75
+        self.images = []
         self.image = 0
         self.turret = 0
         self.turretX = 0
@@ -73,22 +74,31 @@ class MovingEnemyTank(Tank):
             self.moveTimer = self.moveTimerMax
             self.moveStep = 0
 
-            print("NEW PATH")
+            # print("NEW PATH")
 
             grid.cleanup()
 
-        if self.x < self.path[self.moveStep].x * 75:
-            self.x += self.speed
-        elif self.x > self.path[self.moveStep].x * 75:
-            self.x -= self.speed
-        elif self.y < self.path[self.moveStep].y * 75:
-            self.y += self.speed
-        elif self.y > self.path[self.moveStep].y * 75:
-            self.y -= self.speed
-        else:
+        if abs(self.x - self.path[self.moveStep].x * 75) <= self.speed and abs(self.y - self.path[self.moveStep].y * 75) <= self.speed:
+            # print(f'STEP: {self.x - self.path[self.moveStep].x * 75}')
             self.moveStep += 1
+        if self.x < self.path[self.moveStep].x * 75:
+            # print(f'RIGHT: {self.x - self.path[self.moveStep].x * 75}')
+            self.x += self.speed
+            self.image = self.images[0]
+        if self.x > self.path[self.moveStep].x * 75:
+            # print(f'LEFT: {self.x - self.path[self.moveStep].x * 75}')
+            self.x -= self.speed
+            self.image = self.images[0]
+        if self.y < self.path[self.moveStep].y * 75:
+            # print(f'DOWN: {self.y - self.path[self.moveStep].y * 75}')
+            self.y += self.speed
+            self.image = self.images[1]
+        if self.y > self.path[self.moveStep].y * 75:
+            # print(f'UP: {self.y - self.path[self.moveStep].y * 75}')
+            self.y -= self.speed
+            self.image = self.images[1]
 
-        print(f'{self.moveStep}: ({self.path[2].x}, {self.path[2].y})')
+        # print(f'{self.moveStep}: ({self.path[2].x}, {self.path[2].y})')
 
         self.moveTimer -= 1
         

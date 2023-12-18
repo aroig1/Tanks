@@ -14,7 +14,8 @@ class RedTank(MovingEnemyTank):
         self.bulletTimer = 74
         self.bulletTimerMax = 75
 
-        self.image = pygame.image.load('SpriteImages/RedTank/RedTank.bmp')
+        self.images = [pygame.image.load('SpriteImages/RedTank/RedTank.bmp'), pygame.image.load('SpriteImages/RedTank/RedTank2.bmp')]
+        self.image = self.images[0]
         self.turret = pygame.image.load('SpriteImages/RedTank/RedTurret.bmp')
 
         self.turretX = self.x + (self.image.get_width() / 2) - (self.turret.get_width() / 2)
