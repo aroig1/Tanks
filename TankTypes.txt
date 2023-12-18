@@ -1,6 +1,12 @@
 Tank:
     - Base Class
 
+StillEnemyTank
+    - subclass of Tank
+
+MovingEnemyTank
+    - subclass of Tank
+
 Blue Tank:
     - subclass of Tank
     - Player
@@ -9,5 +15,20 @@ Blue Tank:
 
 Brown Tank:
     - CPU
+    - subclass of StillEnemyTank
     - bullets cannot bounce
+    - no bombs
+
+Green Tank
+    - CPU
+    - subclass of StillEnemyTank
+    - shoots rockets
+    - rockets cannot bounce
+    - no bombs
+
+Red Tank
+    - CPU
+    - subclass of MovingEnemyTank
+    - bullets cannot bounce
+    - can move
     - no bombs

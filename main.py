@@ -5,6 +5,7 @@ from settings import Settings
 from blueTank import BlueTank
 from brownTank import BrownTank
 from greenTank import GreenTank
+from redTank import RedTank
 from bullet import Bullet
 from brownBullet import BrownBullet
 from blueBullet import BlueBullet
@@ -26,6 +27,7 @@ class TanksGame:
 
         self.blocks = []
         self.destroyBlocks = []
+        self.matrix = []
 
         self.player = 0
 
@@ -73,12 +75,15 @@ class TanksGame:
 
                 # Update enemies
                 for enemy in self.enemies:
+                    enemy.move(self.player.x + self.player.width, self.player.y + self.player.height, self.matrix)
                     if enemy.shoot(self.player.x + self.player.width, self.player.y + self.player.height):
                         match enemy.color:
                             case 'brown':
                                 self.bullets.append(BrownBullet(enemy.x + enemy.width, enemy.y + enemy.height, self.player.x + self.player.width / 2, self.player.y + self.player.height / 2))
                             case 'green':
                                 self.bullets.append(FireBullet(enemy.x + enemy.width, enemy.y + enemy.height, self.player.x + self.player.width / 2, self.player.y + self.player.height / 2))
+                            case 'red':
+                                self.bullets.append(BrownBullet(enemy.x + enemy.width, enemy.y + enemy.height, self.player.x + self.player.width / 2, self.player.y + self.player.height / 2))
                     if enemy.checkHit(self.bullets, self.bombs):
                         self.enemies.remove(enemy)
 
@@ -144,12 +149,16 @@ class TanksGame:
             for block in data['destroyableBlocks']:
                 self.blocks.append(Block(block['coordinates'][0], block['coordinates'][1], block['texture'], 'destroyable'))
 
+            self.matrix = data['matrix']
+
             for enemy in data['enemies']:
                 match enemy['color']:
                     case 'brown':
                         self.enemies.append(BrownTank(enemy['coordinates'][0], enemy['coordinates'][1], self.blocks))
                     case 'green':
                         self.enemies.append(GreenTank(enemy['coordinates'][0], enemy['coordinates'][1], self.blocks))
+                    case 'red':
+                        self.enemies.append(RedTank(enemy['coordinates'][0], enemy['coordinates'][1], self.blocks))
 
             player = data['player']
             self.player = BlueTank(player['coordinates'][0], player['coordinates'][1], self.blocks)
