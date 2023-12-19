@@ -11,8 +11,9 @@ class MovingEnemyTank(Tank):
         super().__init__(x, y, blocks)
 
         self.moveTimer = 0
-        self.moveTimerMax = 150
+        self.moveTimerMax = 125
         self.moveStep = 0
+        self.grid = []
         self.path = []
         self.speed = 3
 
@@ -62,43 +63,48 @@ class MovingEnemyTank(Tank):
     
     def move(self, player_x, player_y, matrix):
         if self.moveTimer <= 0:
-            grid = Grid(matrix = matrix)
+            self.grid = Grid(matrix = matrix)
 
-            start = grid.node(self.x // 75, self.y // 75)
-            end = grid.node(int(player_x) // 75, int(player_y) // 75)
+            start = self.grid.node(self.x // 75, self.y // 75)
+            end = self.grid.node(int(player_x) // 75, int(player_y) // 75)
 
             finder = AStarFinder()
 
-            self.path, runs = finder.find_path(start, end, grid)
+            self.path, runs = finder.find_path(start, end, self.grid)
 
             self.moveTimer = self.moveTimerMax
             self.moveStep = 0
 
             # print("NEW PATH")
+            # print(self.path)
 
-            grid.cleanup()
+            self.grid.cleanup()
 
-        if abs(self.x - self.path[self.moveStep].x * 75) <= self.speed and abs(self.y - self.path[self.moveStep].y * 75) <= self.speed:
-            # print(f'STEP: {self.x - self.path[self.moveStep].x * 75}')
-            self.moveStep += 1
-        if self.x < self.path[self.moveStep].x * 75:
-            # print(f'RIGHT: {self.x - self.path[self.moveStep].x * 75}')
-            self.x += self.speed
-            self.image = self.images[0]
-        if self.x > self.path[self.moveStep].x * 75:
-            # print(f'LEFT: {self.x - self.path[self.moveStep].x * 75}')
-            self.x -= self.speed
-            self.image = self.images[0]
-        if self.y < self.path[self.moveStep].y * 75:
-            # print(f'DOWN: {self.y - self.path[self.moveStep].y * 75}')
-            self.y += self.speed
-            self.image = self.images[1]
-        if self.y > self.path[self.moveStep].y * 75:
-            # print(f'UP: {self.y - self.path[self.moveStep].y * 75}')
-            self.y -= self.speed
-            self.image = self.images[1]
+        try: # FIND BETTER SOLUTION
+            if self.moveStep < len(self.path) - 1 and abs(self.x - self.path[self.moveStep].x * 75) <= self.speed and abs(self.y - self.path[self.moveStep].y * 75) <= self.speed:
+                # print(f'STEP: {self.x - self.path[self.moveStep].x * 75}') # For Testing
+                self.moveStep += 1
+            if self.x < self.path[self.moveStep].x * 75:
+                # print(f'RIGHT: {self.x} < {self.path[self.moveStep].x * 75}') # For Testing
+                self.x += self.speed
+                self.image = self.images[0]
+            if self.x > self.path[self.moveStep].x * 75:
+                # print(f'LEFT: {self.x} > {self.path[self.moveStep].x * 75}') # For Testing
+                self.x -= self.speed
+                self.image = self.images[0]
+            if self.y < self.path[self.moveStep].y * 75:
+                # print(f'DOWN: {self.y} < {self.path[self.moveStep].y * 75}') # For Testing
+                self.y += self.speed
+                self.image = self.images[1]
+            if self.y > self.path[self.moveStep].y * 75:
+                # print(f'UP: {self.y} > {self.path[self.moveStep].y * 75}') # For Testing
+                self.y -= self.speed
+                self.image = self.images[1]
+        except:
+            pass
 
-        # print(f'{self.moveStep}: ({self.path[2].x}, {self.path[2].y})')
+        # print(f'x: {abs(self.x - self.path[self.moveStep].x * 75)} \t y: {abs(self.y - self.path[self.moveStep].y * 75)}')
+        # print(f'{self.moveStep}: ({self.path[2].x}, {self.path[2].y})') # For Testing
 
         self.moveTimer -= 1
         
