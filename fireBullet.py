@@ -35,4 +35,4 @@ class FireBullet(Bullet):
             self.yVelocity = -1 * self.bulletSpeed * math.sin(math.radians(angle))
 
         self.x += 6 * self.xVelocity
-        self.y += 6 * self.yVelocity
+        self.y += 5 * self.yVelocity

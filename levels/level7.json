@@ -1,0 +1,156 @@
+{
+    "level" : 4,
+    "player" : {
+        "coordinates" : [200, 700]
+    },
+    "enemies" : [
+        {
+            "coordinates" : [100, 100],
+            "color" : "purple"
+        },
+        {
+            "coordinates" : [1150, 125],
+            "color" : "purple"
+        },
+        {
+            "coordinates" : [175, 350],
+            "color" : "purple"
+        },
+        {
+            "coordinates" : [1150, 725],
+            "color" : "purple"
+        }
+    ],
+    "permanentBlocks" : [
+        {
+            "coordinates" : [25, 200],
+            "texture" : "birch"
+        },
+        {
+            "coordinates" : [100, 200],
+            "texture" : "birch"
+        },
+        {
+            "coordinates" : [250, 200],
+            "texture" : "birch"
+        },
+        {
+            "coordinates" : [325, 200],
+            "texture" : "birch"
+        },
+        {
+            "coordinates" : [400, 200],
+            "texture" : "birch"
+        },
+        {
+            "coordinates" : [475, 200],
+            "texture" : "birch"
+        },
+        {
+            "coordinates" : [850, 275],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [925, 275],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [1000, 275],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [1075, 275],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [1225, 275],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [1300, 275],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [25, 500],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [100, 500],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [250, 500],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [325, 500],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [400, 500],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [475, 500],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [850, 575],
+            "texture" : "birch"
+        },
+        {
+            "coordinates" : [925, 575],
+            "texture" : "birch"
+        },
+        {
+            "coordinates" : [1000, 575],
+            "texture" : "birch"
+        },
+        {
+            "coordinates" : [1075, 575],
+            "texture" : "birch"
+        },
+        {
+            "coordinates" : [1225, 575],
+            "texture" : "birch"
+        },
+        {
+            "coordinates" : [1300, 575],
+            "texture" : "birch"
+        }
+    ],
+    "destroyableBlocks" : [
+        {
+            "coordinates" : [175, 200],
+            "texture" : "gravel"
+        },
+        {
+            "coordinates" : [175, 500],
+            "texture" : "gravel"
+        },
+        {
+            "coordinates" : [1150, 275],
+            "texture" : "gravel"
+        },
+        {
+            "coordinates" : [1150, 575],
+            "texture" : "gravel"
+        }
+    ],
+    "holes" : [
+    ],
+    "matrix" : [
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0]
+    ]
+}
