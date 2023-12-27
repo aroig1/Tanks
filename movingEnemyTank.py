@@ -83,22 +83,22 @@ class MovingEnemyTank(Tank):
             self.grid.cleanup()
             
         if self.moveStep < len(self.path):
-            if abs(self.x - self.path[self.moveStep].x * 75) <= self.speed and abs(self.y - self.path[self.moveStep].y * 75) <= self.speed:
+            if abs(self.x - (self.path[self.moveStep].x * 75 + 25)) <= self.speed and abs(self.y - (self.path[self.moveStep].y * 75 + 50)) <= self.speed:
                 # print(f'STEP: {self.x - self.path[self.moveStep].x * 75}') # For Testing
                 self.moveStep += 1
-            if (self.path[self.moveStep].x * 75) - self.x > self.speed: 
+            if (self.path[self.moveStep].x * 75 + 25) - self.x > self.speed: 
                 # print(f'RIGHT: {self.x} < {self.path[self.moveStep].x * 75}') # For Testing
                 self.x += self.speed
                 self.image = self.images[0]
-            elif self.x - (self.path[self.moveStep].x * 75) > self.speed:
+            elif self.x - (self.path[self.moveStep].x * 75 + 25) > self.speed:
                 # print(f'LEFT: {self.x} > {self.path[self.moveStep].x * 75}') # For Testing
                 self.x -= self.speed
                 self.image = self.images[0]
-            elif (self.path[self.moveStep].y * 75) - self.y > self.speed:
+            elif (self.path[self.moveStep].y * 75 + 50) - self.y > self.speed:
                 # print(f'DOWN: {self.y} < {self.path[self.moveStep].y * 75}') # For Testing
                 self.y += self.speed
                 self.image = self.images[1]
-            elif self.y - (self.path[self.moveStep].y * 75) > self.speed:
+            elif self.y - (self.path[self.moveStep].y * 75 + 50) > self.speed:
                 # print(f'UP: {self.y} > {self.path[self.moveStep].y * 75}') # For Testing
                 self.y -= self.speed
                 self.image = self.images[1]

@@ -1,0 +1,232 @@
+{
+    "level" : 4,
+    "player" : {
+        "coordinates" : [200, 700]
+    },
+    "enemies" : [
+        {
+            "coordinates" : [675, 100],
+            "color" : "brown"
+        },
+        {
+            "coordinates" : [1150, 100],
+            "color" : "red"
+        },
+        {
+            "coordinates" : [675, 400],
+            "color" : "red"
+        },
+        {
+            "coordinates" : [1150, 400],
+            "color" : "brown"
+        }
+    ],
+    "permanentBlocks" : [
+    ],
+    "destroyableBlocks" : [
+    ],
+    "holes" : [
+        {
+            "coordinates" : [400, 50],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [400, 125],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [400, 200],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [400, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [400, 350],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [400, 425],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [400, 575],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [400, 725],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [400, 800],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [925, 50],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [925, 125],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [925, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [925, 425],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [925, 500],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [925, 575],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [925, 650],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [925, 725],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [925, 800],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [25, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [100, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [175, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [250, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [550, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [625, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [700, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [775, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [850, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [925, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [1000, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [1075, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [1150, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [1225, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [1300, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [25, 575],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [100, 575],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [175, 575],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [250, 575],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [325, 575],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [475, 575],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [550, 575],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [625, 575],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [700, 575],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [775, 575],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [1075, 575],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [1150, 575],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [1225, 575],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [1300, 575],
+            "texture" : "hole"
+        }
+    ],
+    "matrix" : [
+        [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0]
+    ]
+}
