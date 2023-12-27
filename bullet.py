@@ -40,23 +40,24 @@ class Bullet:
             self.rotateImage(self.xVelocity, self.yVelocity)
             self.bounceCount += 1
         for block in blocks:
-            if (abs(self.x - block.x + self.image.get_width()) <= self.settings.bulletSpeed) and (block.y < self.y < block.y + block.size): # Left border bounce
-                self.xVelocity *= -1
-                self.rotateImage(self.xVelocity, self.yVelocity)
-                self.bounceCount += 1
-            elif (abs((block.x + block.size) - self.x) <= self.settings.bulletSpeed) and (block.y < self.y < block.y + block.size): # Right border bounce
-                self.xVelocity *= -1
-                self.rotateImage(self.xVelocity, self.yVelocity)
-                self.bounceCount += 1
-            elif (abs(self.y - block.y + self.image.get_height()) <= self.settings.bulletSpeed) and (block.x < self.x < block.x + block.size): # Top border bounce
-                self.yVelocity *= -1
-                self.rotateImage(self.xVelocity, self.yVelocity)
-                self.bounceCount += 1
-            elif (abs((block.y + block.size) - self.y) <= self.settings.bulletSpeed) and (block.x < self.x < block.x + block.size): # Bottom border bounce
-                self.yVelocity *= -1
-                self.rotateImage(self.xVelocity, self.yVelocity)
-                self.bounceCount += 1
-            elif block.x < self.x < block.x + block.size or block.x < self.x + self.image.get_width() < block.x + block.size:
-                if block.y < self.y < block.y + block.size or block.y < self.y + self.image.get_height() < block.y + block.size:
+            if block.type != 'hole':
+                if (abs(self.x - block.x + self.image.get_width()) <= self.settings.bulletSpeed) and (block.y < self.y < block.y + block.size): # Left border bounce
+                    self.xVelocity *= -1
+                    self.rotateImage(self.xVelocity, self.yVelocity)
                     self.bounceCount += 1
+                elif (abs((block.x + block.size) - self.x) <= self.settings.bulletSpeed) and (block.y < self.y < block.y + block.size): # Right border bounce
+                    self.xVelocity *= -1
+                    self.rotateImage(self.xVelocity, self.yVelocity)
+                    self.bounceCount += 1
+                elif (abs(self.y - block.y + self.image.get_height()) <= self.settings.bulletSpeed) and (block.x < self.x < block.x + block.size): # Top border bounce
+                    self.yVelocity *= -1
+                    self.rotateImage(self.xVelocity, self.yVelocity)
+                    self.bounceCount += 1
+                elif (abs((block.y + block.size) - self.y) <= self.settings.bulletSpeed) and (block.x < self.x < block.x + block.size): # Bottom border bounce
+                    self.yVelocity *= -1
+                    self.rotateImage(self.xVelocity, self.yVelocity)
+                    self.bounceCount += 1
+                elif block.x < self.x < block.x + block.size or block.x < self.x + self.image.get_width() < block.x + block.size:
+                    if block.y < self.y < block.y + block.size or block.y < self.y + self.image.get_height() < block.y + block.size:
+                        self.bounceCount += 1
 

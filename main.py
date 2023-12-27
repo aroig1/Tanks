@@ -156,6 +156,12 @@ class TanksGame:
 
             for block in data['destroyableBlocks']:
                 self.blocks.append(Block(block['coordinates'][0], block['coordinates'][1], block['texture'], 'destroyable'))
+            
+            try:
+                for hole in data['holes']:
+                    self.blocks.append(Block(hole['coordinates'][0], hole['coordinates'][1] + 8, hole['texture'], 'hole'))
+            except:
+                pass
 
             self.matrix = data['matrix']
 
