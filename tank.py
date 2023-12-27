@@ -48,3 +48,6 @@ class Tank:
                         return False
             
         return False
+    
+    def plantBomb(self):
+        pass

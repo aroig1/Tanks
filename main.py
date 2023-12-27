@@ -7,6 +7,7 @@ from brownTank import BrownTank
 from greenTank import GreenTank
 from redTank import RedTank
 from purpleTank import PurpleTank
+from yellowTank import YellowTank
 from bullet import Bullet
 from brownBullet import BrownBullet
 from blueBullet import BlueBullet
@@ -87,6 +88,10 @@ class TanksGame:
                                 self.bullets.append(BrownBullet(enemy.x + enemy.width, enemy.y + enemy.height, self.player.x + self.player.width / 2, self.player.y + self.player.height / 2))
                             case 'purple':
                                 self.bullets.append(FireBullet(enemy.x + enemy.width, enemy.y + enemy.height, self.player.x + self.player.width / 2, self.player.y + self.player.height / 2))
+                            case 'yellow':
+                                self.bullets.append(BrownBullet(enemy.x + enemy.width, enemy.y + enemy.height, self.player.x + self.player.width / 2, self.player.y + self.player.height / 2))
+                    if enemy.plantBomb():
+                        self.bombs.append(Bomb(enemy.x + enemy.width / 2, enemy.y + enemy.height / 2))
                     if enemy.checkHit(self.bullets, self.bombs):
                         self.enemies.remove(enemy)
 
@@ -164,6 +169,8 @@ class TanksGame:
                         self.enemies.append(RedTank(enemy['coordinates'][0], enemy['coordinates'][1], self.blocks))
                     case 'purple':
                         self.enemies.append(PurpleTank(enemy['coordinates'][0], enemy['coordinates'][1], self.blocks))
+                    case 'yellow':
+                        self.enemies.append(YellowTank(enemy['coordinates'][0], enemy['coordinates'][1], self.blocks))
 
             player = data['player']
             self.player = BlueTank(player['coordinates'][0], player['coordinates'][1], self.blocks)

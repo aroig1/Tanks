@@ -6,7 +6,7 @@
     "enemies" : [
         {
             "coordinates" : [1100, 300],
-            "color" : "red"
+            "color" : "yellow"
         },
         {
             "coordinates" : [1100, 600],
