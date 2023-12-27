@@ -1,0 +1,180 @@
+{
+    "level" : 4,
+    "player" : {
+        "coordinates" : [100, 425]
+    },
+    "enemies" : [
+        {
+            "coordinates" : [1150, 275],
+            "color" : "red"
+        },
+        {
+            "coordinates" : [1225, 425],
+            "color" : "purple"
+        },
+        {
+            "coordinates" : [1275, 650],
+            "color" : "purple"
+        },
+        {
+            "coordinates" : [1150, 750],
+            "color" : "red"
+        }
+    ],
+    "permanentBlocks" : [
+        {
+            "coordinates" : [175, 200],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [325, 200],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [475, 200],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [625, 200],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [700, 200],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [775, 200],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [850, 200],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [925, 200],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [1000, 200],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [1075, 200],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [1150, 200],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [175, 650],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [250, 650],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [325, 650],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [400, 650],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [475, 650],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [550, 650],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [625, 650],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [700, 650],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [850, 650],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [1000, 650],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [1150, 650],
+            "texture" : "oak"
+        }
+    ],
+    "destroyableBlocks" : [
+        {
+            "coordinates" : [250, 200],
+            "texture" : "gravel"
+        },
+        {
+            "coordinates" : [400, 200],
+            "texture" : "gravel"
+        },
+        {
+            "coordinates" : [550, 200],
+            "texture" : "gravel"
+        },
+        {
+            "coordinates" : [1075, 650],
+            "texture" : "gravel"
+        },
+        {
+            "coordinates" : [925, 650],
+            "texture" : "gravel"
+        },
+        {
+            "coordinates" : [775, 650],
+            "texture" : "gravel"
+        }
+    ],
+    "holes" : [
+        {
+            "coordinates" : [625, 275],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [625, 350],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [625, 425],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [700, 425],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [700, 500],
+            "texture" : "hole"
+        },
+        {
+            "coordinates" : [700, 575],
+            "texture" : "hole"
+        }
+    ],
+    "matrix" : [
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0]
+    ]
+}
