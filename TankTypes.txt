@@ -32,3 +32,18 @@ Red Tank
     - bullets cannot bounce
     - can move
     - no bombs
+
+Purple Tank
+    - CPU
+    - subclass of MovingEnemyTank
+    - shoots rockets
+    - rockets cannot bounce
+    - can move
+    - no bombs
+
+Yellow Tank
+    - CPU
+    - subclass of MovingEnemyTank
+    - bullets cannot bounce
+    - can move
+    - places bombs
