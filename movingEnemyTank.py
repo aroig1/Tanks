@@ -82,7 +82,7 @@ class MovingEnemyTank(Tank):
 
             self.grid.cleanup()
             
-        if self.moveStep < len(self.path):
+        if self.moveStep < len(self.path) - 1:
             if abs(self.x - (self.path[self.moveStep].x * 75 + 25)) <= self.speed and abs(self.y - (self.path[self.moveStep].y * 75 + 50)) <= self.speed:
                 # print(f'STEP: {self.x - self.path[self.moveStep].x * 75}') # For Testing
                 self.moveStep += 1

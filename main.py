@@ -25,7 +25,7 @@ class TanksGame:
 
         self.background = pygame.image.load('mapImages/woodBackground.png')
 
-        self.levels = ['levels/level1.json', 'levels/level2.json', 'levels/level3.json', 'levels/level4.json']
+        self.levels = ['levels/level1.json', 'levels/level2.json', 'levels/level3.json', 'levels/level4.json', 'levels/level5.json']
 
         self.blocks = []
         self.destroyBlocks = []
