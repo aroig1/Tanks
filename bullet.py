@@ -56,4 +56,7 @@ class Bullet:
                 self.yVelocity *= -1
                 self.rotateImage(self.xVelocity, self.yVelocity)
                 self.bounceCount += 1
+            elif block.x < self.x < block.x + block.size or block.x < self.x + self.image.get_width() < block.x + block.size:
+                if block.y < self.y < block.y + block.size or block.y < self.y + self.image.get_height() < block.y + block.size:
+                    self.bounceCount += 1
 
