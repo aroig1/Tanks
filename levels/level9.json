@@ -1,0 +1,140 @@
+{
+    "level" : 9,
+    "player" : {
+        "coordinates" : [200, 700]
+    },
+    "enemies" : [
+        {
+            "coordinates" : [175, 275],
+            "color" : "yellow"
+        },
+        {
+            "coordinates" : [475, 125],
+            "color" : "red"
+        },
+        {
+            "coordinates" : [810, 425],
+            "color" : "red"
+        },
+        {
+            "coordinates" : [1150, 200],
+            "color" : "red"
+        },
+        {
+            "coordinates" : [850, 760],
+            "color" : "red"
+        },
+        {
+            "coordinates" : [1150, 650],
+            "color" : "yellow"
+        }
+    ],
+    "permanentBlocks" : [
+        {
+            "coordinates" : [25, 425],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [100, 425],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [175, 425],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [250, 425],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [325, 425],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [400, 425],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [1300, 425],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [1225, 425],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [1150, 425],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [1075, 425],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [1000, 425],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [925, 425],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [625, 200],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [700, 200],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [625, 650],
+            "texture" : "oak"
+        },
+        {
+            "coordinates" : [700, 650],
+            "texture" : "oak"
+        }
+    ],
+    "destroyableBlocks" : [
+        {
+            "coordinates" : [625, 275],
+            "texture" : "gravel"
+        },
+        {
+            "coordinates" : [625, 350],
+            "texture" : "gravel"
+        },
+        {
+            "coordinates" : [625, 425],
+            "texture" : "gravel"
+        },
+        {
+            "coordinates" : [700, 425],
+            "texture" : "gravel"
+        },
+        {
+            "coordinates" : [700, 500],
+            "texture" : "gravel"
+        },
+        {
+            "coordinates" : [700, 575],
+            "texture" : "gravel"
+        }
+    ],
+    "holes" : [
+    ],
+    "matrix" : [
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0]
+    ]
+}

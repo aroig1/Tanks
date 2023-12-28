@@ -27,7 +27,7 @@ class TanksGame:
 
         self.levels = ['levels/level1.json', 'levels/level2.json', 'levels/level3.json',
                         'levels/level4.json', 'levels/level5.json', 'levels/level6.json',
-                        'levels/level7.json', 'levels/level8.json']
+                        'levels/level7.json', 'levels/level8.json', 'levels/level9.json']
 
         self.blocks = []
         self.destroyBlocks = []
@@ -46,7 +46,7 @@ class TanksGame:
 
     def runGame(self):
         level = 0
-        maxLevel = 8
+        maxLevel = 9
 
         while self.gameRunning:
 
