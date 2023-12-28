@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 import math
 import json
 from settings import Settings
@@ -18,12 +19,24 @@ from block import Block
 class TanksGame:
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
         self.settings = Settings()
         self.screen = pygame.display.set_mode(self.settings.screenSize)
         pygame.display.set_caption("Tanks")
         pygame.mouse.set_visible(False)
 
         self.background = pygame.image.load('mapImages/woodBackground.png')
+
+        self.musicChannel = mixer.Channel(1)
+        self.moveChannel = mixer.Channel(2)
+        self.effectsChannel = mixer.Channel(3)
+
+        self.backgroundMusic = mixer.Sound('sounds/backgroundMusic.wav')
+        self.shootSound = mixer.Sound('sounds/shootBullet.wav')
+        self.bulletBounceSound = mixer.Sound('sounds/bounce.wav')
+        self.bombSound = mixer.Sound('sounds/plantBomb.wav')
+        self.moveSound = mixer.Sound('sounds/tankMoving.wav')
+        self.moveSound.set_volume(0.05)
 
         self.levels = ['levels/level1.json', 'levels/level2.json', 'levels/level3.json',
                         'levels/level4.json', 'levels/level5.json', 'levels/level6.json',
@@ -61,6 +74,8 @@ class TanksGame:
             self.levelRunning = True
             self.loadLevel(level)
 
+            self.musicChannel.play(self.backgroundMusic, -1)
+
             while self.levelRunning and len(self.enemies) > 0:
                 pygame.time.delay(5)
 
@@ -72,10 +87,12 @@ class TanksGame:
                 # Shoot bullets
                 if self.player.shoot():
                     self.bullets.append(BlueBullet(self.player.x + self.player.width, self.player.y + self.player.height))
+                    self.effectsChannel.play(self.shootSound)
 
                 # Place bombs
                 if self.player.plantBomb(keys):
                     self.bombs.append(Bomb(self.player.x + self.player.width / 2, self.player.y + self.player.height / 2))
+                    self.effectsChannel.play(self.bombSound)
 
                 # Update enemies
                 for enemy in self.enemies:
@@ -92,8 +109,10 @@ class TanksGame:
                                 self.bullets.append(FireBullet(enemy.x + enemy.width, enemy.y + enemy.height, self.player.x + self.player.width / 2, self.player.y + self.player.height / 2))
                             case 'yellow':
                                 self.bullets.append(BrownBullet(enemy.x + enemy.width, enemy.y + enemy.height, self.player.x + self.player.width / 2, self.player.y + self.player.height / 2))
+                        self.effectsChannel.play(self.shootSound)
                     if enemy.plantBomb():
                         self.bombs.append(Bomb(enemy.x + enemy.width / 2, enemy.y + enemy.height / 2))
+                        self.effectsChannel.play(self.bombSound)
                     if enemy.checkHit(self.bullets, self.bombs):
                         self.enemies.remove(enemy)
 
@@ -117,6 +136,7 @@ class TanksGame:
     
                 self.displayScreen()
 
+            self.backgroundMusic.stop()
             if not self.player.hit:
                 level += 1
             else:
@@ -184,6 +204,9 @@ class TanksGame:
             self.player = BlueTank(player['coordinates'][0], player['coordinates'][1], self.blocks)
 
     def movePlayer(self, keys):
+        # movement Sound
+        if keys[pygame.K_w] or keys[pygame.K_d] or keys[pygame.K_s] or keys[pygame.K_a]:
+            self.moveChannel.play(self.moveSound)
         ## Movement
         if keys[pygame.K_w] and keys[pygame.K_d]:
             self.player.image = self.player.sprites[1]
@@ -212,7 +235,10 @@ class TanksGame:
 
     def updateBullets(self):
         for bullet in self.bullets:
+            tempBounceCount = bullet.bounceCount
             bullet.updatePos(self.blocks)
+            if bullet.bounceCount > tempBounceCount and bullet.bounceCount <= bullet.bounceMax:
+                self.effectsChannel.play(self.bulletBounceSound)
             if bullet.bounceCount > bullet.bounceMax:
                 if bullet.type == "player":
                     self.player.bulletCount -= 1

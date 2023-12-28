@@ -35,4 +35,4 @@ class BrownBullet(Bullet):
             self.yVelocity = -1 * self.bulletSpeed * math.sin(math.radians(angle))
 
         self.x += 15 * self.xVelocity
-        self.y += 14 * self.yVelocity
+        self.y += 12 * self.yVelocity

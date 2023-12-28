@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 from settings import Settings
 
 class Tank:
@@ -21,6 +22,9 @@ class Tank:
         self.explodeCount = 0
         self.explodeMax = 8
 
+        self.explosionChannel = mixer.Channel(4)
+        self.explosionSound = mixer.Sound('sounds/explosion.wav')
+
     def checkHit(self, bullets, bombs):
         if self.hit and self.explodeCount == self.explodeMax:
             return True
@@ -38,6 +42,7 @@ class Tank:
                 if self.y < bullet.y < self.y + self.image.get_height() or self.y < bullet.y + bullet.image.get_height() < self.y + self.image.get_height():
                     self.hit = True
                     bullets.remove(bullet)
+                    self.explosionChannel.play(self.explosionSound)
                     return False
                 
         for bomb in bombs:
@@ -45,6 +50,7 @@ class Tank:
                 if (self.x < bomb.x < self.x + self.image.get_width()) or (self.x < bomb.x + bomb.image.get_width() < self.x + self.image.get_width()):
                     if self.y < bomb.y < self.y + self.image.get_height() or self.y < bomb.y + bomb.image.get_height() < self.y + self.image.get_height():
                         self.hit = True
+                        self.explosionChannel.play(self.explosionSound)
                         return False
             
         return False

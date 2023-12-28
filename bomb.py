@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 from settings import Settings
 
 class Bomb:
@@ -20,10 +21,15 @@ class Bomb:
         self.explodeCount = 0
         self.explodeMax = 8
 
+        self.explosionChannel = mixer.Channel(4)
+        self.explosionSound = mixer.Sound('sounds/explosion.wav')
+
         self.settings = Settings()
 
     def update(self):
         self.timer += 1
+        if self.countdown == 0 and self.explodeCount == 0:
+            self.explosionChannel.play(self.explosionSound)
         # Explosion animation
         if self.countdown == 0 and self.explodeCount < self.explodeMax:
             self.image = self.explodeImages[self.explodeCount]

@@ -11,7 +11,7 @@ class MovingEnemyTank(Tank):
         super().__init__(x, y, blocks)
 
         self.moveTimer = 0
-        self.moveTimerMax = 125
+        self.moveTimerMax = 200
         self.moveStep = 1
         self.grid = []
         self.path = []
