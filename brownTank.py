@@ -1,5 +1,6 @@
 import pygame
 import math
+import random
 from stillEnemyTank import StillEnemyTank
 from settings import Settings
 from brownBullet import BrownBullet
@@ -11,7 +12,7 @@ class BrownTank(StillEnemyTank):
 
         self.color = 'brown'
 
-        self.bulletTimer = 74
+        self.bulletTimer = random.randint(50, 74)
         self.bulletTimerMax = 75
 
         self.image = pygame.image.load('SpriteImages/BrownTank/BrownTank.bmp')

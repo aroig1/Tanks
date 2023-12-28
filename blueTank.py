@@ -104,9 +104,6 @@ class BlueTank(Tank):
     def display(self, screen):
         # Display Crosshair
         self.displayCrosshair(screen)
-        # display bullets
-        for bullet in self.bullets:
-            screen.blit(bullet.image, (bullet.x, bullet.y))
         # display tank base
         screen.blit(self.image, (self.x, self.y))
         # display tank turret

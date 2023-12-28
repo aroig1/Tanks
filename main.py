@@ -23,14 +23,16 @@ class TanksGame:
         self.settings = Settings()
         self.screen = pygame.display.set_mode(self.settings.screenSize)
         pygame.display.set_caption("Tanks")
-        pygame.mouse.set_visible(False)
+        # pygame.mouse.set_visible(False)
 
         self.background = pygame.image.load('mapImages/woodBackground.png')
+        self.missionTitleBackground = pygame.image.load('mapImages/missionTitleScreen.png')
 
         self.musicChannel = mixer.Channel(1)
         self.moveChannel = mixer.Channel(2)
         self.effectsChannel = mixer.Channel(3)
 
+        self.startLevelSound = mixer.Sound('sounds/roundStart.wav')
         self.backgroundMusic = mixer.Sound('sounds/backgroundMusic.wav')
         self.shootSound = mixer.Sound('sounds/shootBullet.wav')
         self.bulletBounceSound = mixer.Sound('sounds/bounce.wav')
@@ -71,12 +73,13 @@ class TanksGame:
 
             level = level % maxLevel
 
+            self.missionTitleScreen(level)
+
             self.levelRunning = True
-            self.loadLevel(level)
+            if self.gameRunning:
+                self.loadLevel(level)
 
-            self.musicChannel.play(self.backgroundMusic, -1)
-
-            while self.levelRunning and len(self.enemies) > 0:
+            while self.gameRunning and self.levelRunning and len(self.enemies) > 0:
                 pygame.time.delay(5)
 
                 keys = pygame.key.get_pressed()
@@ -136,7 +139,7 @@ class TanksGame:
     
                 self.displayScreen()
 
-            self.backgroundMusic.stop()
+            self.musicChannel.stop()
             if not self.player.hit:
                 level += 1
             else:
@@ -203,6 +206,42 @@ class TanksGame:
             player = data['player']
             self.player = BlueTank(player['coordinates'][0], player['coordinates'][1], self.blocks)
 
+        self.musicChannel.play(self.backgroundMusic, -1)
+        running  = True
+        i = 0
+
+        while i < 75 and running:
+            pygame.time.delay(5)
+            self.displayScreen()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                    self.gameRunning = False
+                    self.levelRunning = False
+                    break
+
+            i += 1
+
+        i = 0
+        while i < 25 and running:
+            pygame.time.delay(5)
+            self.displayScreen()
+            # display start text
+            font = pygame.font.SysFont('impact', 150)
+            text = font.render('Start', True, (242, 234, 153))
+            self.screen.blit(text, (550, 375))
+            pygame.display.update()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                    self.gameRunning = False
+                    self.levelRunning = False
+                    break
+
+            i += 1
+
     def movePlayer(self, keys):
         # movement Sound
         if keys[pygame.K_w] or keys[pygame.K_d] or keys[pygame.K_s] or keys[pygame.K_a]:
@@ -253,6 +292,41 @@ class TanksGame:
                 if bomb.type == 'player':
                     self.player.bombCount -= 1
                 self.bombs.remove(bomb)
+
+    def missionTitleScreen(self, level):
+        with open(self.levels[level]) as levels_file:
+            data = json.load(levels_file)
+
+            self.musicChannel.play(self.startLevelSound)
+            self.player = BlueTank(650, 700, self.blocks)
+            running = True
+            i = 0
+
+            while i < 100 and running:
+                # display background
+                self.screen.blit(self.missionTitleBackground, (0, 0))
+
+                # display text
+                font = pygame.font.SysFont('impact', 125)
+                text = font.render(f'Mission  {data["level"]}', True, (242, 234, 153))
+                self.screen.blit(text, (450, 250))
+                font = pygame.font.SysFont('impact', 75)
+                text = font.render(f'Enemy tanks:  {len(data["enemies"])}', True, (242, 234, 153))
+                self.screen.blit(text, (470, 450))
+
+                # display player tank
+                self.player.display(self.screen)
+
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        running = False
+                        self.gameRunning = False
+                        self.levelRunning = False
+                        break
+
+                i += 1
+
+                pygame.display.update()
 
 if __name__ == '__main__':
     game = TanksGame()

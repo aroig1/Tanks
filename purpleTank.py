@@ -1,5 +1,6 @@
 import pygame
 import math
+import random
 from movingEnemyTank import MovingEnemyTank
 from settings import Settings
 from brownBullet import BrownBullet
@@ -11,8 +12,8 @@ class PurpleTank(MovingEnemyTank):
 
         self.color = 'purple'
 
-        self.bulletTimer = 74
-        self.bulletTimerMax = 75
+        self.bulletTimer = random.randint(80, 99)
+        self.bulletTimerMax = 100
 
         self.images = [pygame.image.load('SpriteImages/PurpleTank/PurpleTank.bmp'), pygame.image.load('SpriteImages/PurpleTank/PurpleTank2.bmp')]
         self.image = self.images[0]
