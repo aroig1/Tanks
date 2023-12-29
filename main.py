@@ -27,6 +27,9 @@ class TanksGame:
 
         self.background = pygame.image.load('mapImages/woodBackground.png')
         self.missionTitleBackground = pygame.image.load('mapImages/missionTitleScreen.png')
+        self.missionCompleteImage = pygame.image.load('mapImages/missionComplete.PNG')
+        self.startImage = pygame.image.load('mapImages/start.png')
+        self.scoreImage = pygame.image.load('mapImages/scoreCounter.png')
 
         self.musicChannel = mixer.Channel(1)
         self.moveChannel = mixer.Channel(2)
@@ -34,6 +37,7 @@ class TanksGame:
 
         self.startLevelSound = mixer.Sound('sounds/roundStart.wav')
         self.backgroundMusic = mixer.Sound('sounds/backgroundMusic.wav')
+        self.missionCompleteSound = mixer.Sound('sounds/roundEnd.wav')
         self.shootSound = mixer.Sound('sounds/shootBullet.wav')
         self.bulletBounceSound = mixer.Sound('sounds/bounce.wav')
         self.bombSound = mixer.Sound('sounds/plantBomb.wav')
@@ -49,6 +53,7 @@ class TanksGame:
         self.matrix = []
 
         self.player = 0
+        self.score = 0
 
         self.enemies = []
 
@@ -118,6 +123,7 @@ class TanksGame:
                         self.effectsChannel.play(self.bombSound)
                     if enemy.checkHit(self.bullets, self.bombs):
                         self.enemies.remove(enemy)
+                        self.score += 1
 
 
                 for event in pygame.event.get():
@@ -140,8 +146,9 @@ class TanksGame:
                 self.displayScreen()
 
             self.musicChannel.stop()
-            if not self.player.hit:
+            if (not self.player.hit) and self.gameRunning:
                 level += 1
+                self.missionCompleteScreen()
             else:
                 level = 0
             
@@ -227,10 +234,8 @@ class TanksGame:
         while i < 25 and running:
             pygame.time.delay(5)
             self.displayScreen()
-            # display start text
-            font = pygame.font.SysFont('impact', 150)
-            text = font.render('Start', True, (242, 234, 153))
-            self.screen.blit(text, (550, 375))
+            # display start
+            self.screen.blit(self.startImage, (525, 375))
             pygame.display.update()
 
             for event in pygame.event.get():
@@ -327,6 +332,18 @@ class TanksGame:
                 i += 1
 
                 pygame.display.update()
+
+    def missionCompleteScreen(self):
+        self.musicChannel.play(self.missionCompleteSound)
+        self.screen.blit(self.missionCompleteImage, (280, 300))
+        self.screen.blit(self.scoreImage, (500, 500))
+        font = pygame.font.SysFont('impact', 80)
+        text = font.render(str(self.score), True, (43, 176, 231))
+        self.screen.blit(text, (690, 560))
+        pygame.display.update()
+
+        pygame.time.delay(2000)
+
 
 if __name__ == '__main__':
     game = TanksGame()
