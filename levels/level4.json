@@ -6,7 +6,7 @@
     "enemies" : [
         {
             "coordinates" : [675, 100],
-            "color" : "brown"
+            "color" : "green"
         },
         {
             "coordinates" : [1150, 100],
@@ -18,7 +18,7 @@
         },
         {
             "coordinates" : [1150, 400],
-            "color" : "brown"
+            "color" : "green"
         }
     ],
     "permanentBlocks" : [

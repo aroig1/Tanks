@@ -30,6 +30,7 @@ class TanksGame:
         self.missionCompleteImage = pygame.image.load('mapImages/missionComplete.PNG')
         self.startImage = pygame.image.load('mapImages/start.png')
         self.scoreImage = pygame.image.load('mapImages/scoreCounter.png')
+        self.resultsImage = pygame.image.load('mapImages/results.png')
 
         self.musicChannel = mixer.Channel(1)
         self.moveChannel = mixer.Channel(2)
@@ -38,6 +39,8 @@ class TanksGame:
         self.startLevelSound = mixer.Sound('sounds/roundStart.wav')
         self.backgroundMusic = mixer.Sound('sounds/backgroundMusic.wav')
         self.missionCompleteSound = mixer.Sound('sounds/roundEnd.wav')
+        self.missionFailedSound = mixer.Sound('sounds/roundFailure.wav')
+        self.resultsSound = mixer.Sound('sounds/results.wav')
         self.shootSound = mixer.Sound('sounds/shootBullet.wav')
         self.bulletBounceSound = mixer.Sound('sounds/bounce.wav')
         self.bombSound = mixer.Sound('sounds/plantBomb.wav')
@@ -54,6 +57,7 @@ class TanksGame:
 
         self.player = 0
         self.score = 0
+        self.tankKills = {'brown' : 0, 'green' : 0, 'red' : 0, 'purple' : 0, 'yellow' : 0}
 
         self.enemies = []
 
@@ -122,8 +126,9 @@ class TanksGame:
                         self.bombs.append(Bomb(enemy.x + enemy.width / 2, enemy.y + enemy.height / 2))
                         self.effectsChannel.play(self.bombSound)
                     if enemy.checkHit(self.bullets, self.bombs):
-                        self.enemies.remove(enemy)
                         self.score += 1
+                        self.tankKills[enemy.color] += 1
+                        self.enemies.remove(enemy)
 
 
                 for event in pygame.event.get():
@@ -149,8 +154,11 @@ class TanksGame:
             if (not self.player.hit) and self.gameRunning:
                 level += 1
                 self.missionCompleteScreen()
-            else:
+            elif self.gameRunning:
                 level = 0
+                self.missionFailedScreen()
+            if (self.player.hit or level >= maxLevel) and self.gameRunning:
+                self.resultsScreen()
             
         pygame.quit()
 
@@ -343,6 +351,73 @@ class TanksGame:
         pygame.display.update()
 
         pygame.time.delay(2000)
+
+    def missionFailedScreen(self):
+        self.musicChannel.play(self.missionFailedSound)
+        font = pygame.font.SysFont('impact', 80)
+        text = font.render('Mission Failed', True, (242, 234, 153))
+        self.screen.blit(text, (450, 400))
+        pygame.display.update()
+
+        pygame.time.delay(2000)
+
+    def resultsScreen(self):
+        self.displayScreen()
+        self.musicChannel.play(self.resultsSound)
+        self.screen.blit(self.resultsImage, (450, 0))
+        font = pygame.font.SysFont('impact', 70)
+
+        running = True
+        i = 0
+        while i < 150 and running:
+            pygame.time.delay(5)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                    self.gameRunning = False
+                    self.levelRunning = False
+                    break
+
+            if i > 20:
+                brown = BrownTank(500, 210, [])
+                brown.display(self.screen, 650, 210)
+                text = font.render(str(self.tankKills['brown']), True, (56, 32, 0))
+                self.screen.blit(text, (710, 200))
+
+            if i > 50:
+                red = RedTank(500, 310, [])
+                red.display(self.screen, 650, 310)
+                text = font.render(str(self.tankKills['red']), True, (56, 32, 0))
+                self.screen.blit(text, (710, 300))
+
+            if i > 70:
+                green = GreenTank(500, 410, [])
+                green.display(self.screen, 650, 410)
+                text = font.render(str(self.tankKills['green']), True, (56, 32, 0))
+                self.screen.blit(text, (710, 400))
+
+            if i > 85:
+                purple = PurpleTank(500, 510, [])
+                purple.display(self.screen, 650, 510)
+                text = font.render(str(self.tankKills['purple']), True, (56, 32, 0))
+                self.screen.blit(text, (710, 500))
+
+            if i > 95:
+                yellow = YellowTank(500, 610, [])
+                yellow.display(self.screen, 650, 610)
+                text = font.render(str(self.tankKills['yellow']), True, (56, 32, 0))
+                self.screen.blit(text, (710, 600))
+
+            if i == 110:
+                self.screen.blit(self.scoreImage, (500, 700))
+                font2 = pygame.font.SysFont('impact', 80)
+                text = font2.render(str(self.score), True, (43, 176, 231))
+                self.screen.blit(text, (690, 760))
+
+            pygame.display.update()
+            i += 1
+
 
 
 if __name__ == '__main__':
