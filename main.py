@@ -24,7 +24,7 @@ class TanksGame:
         self.settings = Settings()
         self.screen = pygame.display.set_mode(self.settings.screenSize)
         pygame.display.set_caption("Tanks")
-        # pygame.mouse.set_visible(False)
+        pygame.mouse.set_visible(False)
 
         self.startBtnImg = pygame.image.load('mapImages/start_btn.png')
         self.exitBtnImg = pygame.image.load('mapImages/exit_btn.png')
