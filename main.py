@@ -28,6 +28,7 @@ class TanksGame:
 
         self.startBtnImg = pygame.image.load('mapImages/start_btn.png')
         self.exitBtnImg = pygame.image.load('mapImages/exit_btn.png')
+        self.crosshair = pygame.image.load('SpriteImages/BlueTank/crosshair.bmp')
 
         self.background = pygame.image.load('mapImages/woodBackground.png')
         self.missionTitleBackground = pygame.image.load('mapImages/missionTitleScreen.png')
@@ -446,7 +447,6 @@ class TanksGame:
                     return
                 elif event.type == pygame.MOUSEBUTTONUP and startBtn.isClicked():
                     return
-                        
             
             # Display buttons
             self.screen.blit(self.background, (0, 0))
@@ -455,6 +455,12 @@ class TanksGame:
             self.screen.blit(text, (450, 150))
             self.screen.blit(self.startBtnImg, (startBtn.x, startBtn.y))
             self.screen.blit(self.exitBtnImg, (exitBtn.x, exitBtn.y))
+            
+            # display crosshair   
+            x, y = pygame.mouse.get_pos()
+            x = x - self.crosshair.get_width() / 2
+            y =  y - self.crosshair.get_height() / 2
+            self.screen.blit(self.crosshair, (x, y))
 
             pygame.display.update()
 
