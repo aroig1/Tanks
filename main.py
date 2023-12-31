@@ -15,6 +15,7 @@ from blueBullet import BlueBullet
 from fireBullet import FireBullet
 from bomb import Bomb
 from block import Block
+from button import Button
 
 class TanksGame:
     def __init__(self):
@@ -24,6 +25,9 @@ class TanksGame:
         self.screen = pygame.display.set_mode(self.settings.screenSize)
         pygame.display.set_caption("Tanks")
         # pygame.mouse.set_visible(False)
+
+        self.startBtnImg = pygame.image.load('mapImages/start_btn.png')
+        self.exitBtnImg = pygame.image.load('mapImages/exit_btn.png')
 
         self.background = pygame.image.load('mapImages/woodBackground.png')
         self.missionTitleBackground = pygame.image.load('mapImages/missionTitleScreen.png')
@@ -71,6 +75,8 @@ class TanksGame:
     def runGame(self):
         level = 0
         maxLevel = 9
+
+        self.startSequence()
 
         while self.gameRunning:
 
@@ -159,6 +165,9 @@ class TanksGame:
                 self.missionFailedScreen()
             if (self.player.hit or level >= maxLevel) and self.gameRunning:
                 self.resultsScreen()
+                self.startSequence()
+                self.score = 0
+                self.tankKills = {'brown' : 0, 'green' : 0, 'red' : 0, 'purple' : 0, 'yellow' : 0}
             
         pygame.quit()
 
@@ -417,6 +426,37 @@ class TanksGame:
 
             pygame.display.update()
             i += 1
+
+    def startSequence(self):
+        keys = pygame.key.get_pressed()
+        startBtn = Button(550, 430, self.startBtnImg)
+        exitBtn = Button(570, 620, self.exitBtnImg)
+
+        while True:
+            pygame.time.delay(25)
+
+            keys = pygame.key.get_pressed()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.gameRunning = False
+                    return
+                elif event.type == pygame.MOUSEBUTTONUP and exitBtn.isClicked():
+                    self.gameRunning = False
+                    return
+                elif event.type == pygame.MOUSEBUTTONUP and startBtn.isClicked():
+                    return
+                        
+            
+            # Display buttons
+            self.screen.blit(self.background, (0, 0))
+            font = pygame.font.SysFont('impact', 200)
+            text = font.render('Tanks!', True, (0, 0, 0))
+            self.screen.blit(text, (450, 150))
+            self.screen.blit(self.startBtnImg, (startBtn.x, startBtn.y))
+            self.screen.blit(self.exitBtnImg, (exitBtn.x, exitBtn.y))
+
+            pygame.display.update()
 
 
 
