@@ -1,6 +1,4 @@
-Hello, this is my tanks game I created to closely match the classic Wii Play Tanks game. There are 9 total levels where you
-will come incontact with 5 different types of tanks, each of which are listed below. You can control your tank (blue tank)
-using the W, S, D, and A keys to move, left mouse click to shoot, and spacebar to plant bombs. Enjoy!
+Hello, this is my tanks game I created to closely match the classic Wii Play Tanks game. There are 9 total levels where you will come incontact with 5 different types of tanks, each of which are listed below. You can control your tank (blue tank) using the W, S, D, and A keys to move, left mouse click to shoot, and spacebar to plant bombs. Enjoy!
 
 
 Types of Tanks
